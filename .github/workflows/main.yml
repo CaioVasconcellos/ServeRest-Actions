@@ -25,17 +25,86 @@ jobs:
       - name: Build Maven Project
         run: mvn clean install -DskipTests
 
-      - name: Health Check
+      - name: Armazenar build como artefato
+        uses: action/upload-artifact@v3
+        with:
+          name: build-project
+          path: target/
+          continue-on-error: false
+
+  health-check:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Baixar build
+        uses: actions/download-artifact@v3
+        with:
+         name: build-project
+         path: target/
+
+      - name: Executar teste Health Check
         run: mvn -Dtest="com.vemser.rest.tests.healthCheck.HealthCheckTest" test
         continue-on-error: false
+
+      - name: Armazenar resultados do Allure
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results/
+
+  contrato-test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Baixar build
+        uses: actions/download-artifact@v3
+        with:
+          name: build-project
+          path: target/
 
       - name: Testes de Schema (Contrato)
         run: mvn test -Dgroups=schema
         continue-on-error: false
 
+      - name: Armazenar resultados do Contrato
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results/
+
+  funcional-test:
+    runs-on: ubuntu-latest
+    needs: build
+    steps:
+      - name: Baixar build
+        uses: actions/download-artifact@v3
+        with:
+          name: build-project
+          path: target/
+
       - name: Testes Funcionais
         run: mvn test -DexcludedGroups=schema
         continue-on-error: false
+
+      - name: Armazenar resultados dos Testes Funcionais
+        if: always()
+        uses: actions/upload-artifact@v3
+        with:
+          name: allure-results
+          path: allure-results/
+
+  relatorio-allure:
+    runs-on: ubuntu-latest
+    needs: build
+    if: always()
+    steps:
+      - name: Baixar build
+        uses: actions/download-artifact@v3
+        with:
+          name: build-project
+          path: target/
 
       - name: Gerar relatório Allure
         if: always()
@@ -89,10 +158,18 @@ jobs:
         with:
           args: |
             🚀 Pipeline concluído!
-            Status do Build: ${{ needs.build.result }}
+            Status dos Jobs:
+            - Build: ${{ needs.build.result }}
+            - Health Check: ${{ needs.health-check.result }}
+            - Testes de Contrato: ${{ needs.contrato-test.result }}
+            - Testes Funcionais: ${{ needs.funcional-test.result }}
+            - Relatório Allure: ${{ needs.relatorio-allure.result }}
+            - Análise CodeQL: ${{ needs.codeql-analysis.result }}
+            
             Status da Análise CodeQL: ${{ needs.codeql-analysis.result }}
             Repositório: ${{ github.repository }}
             Evento: ${{ github.event_name }}
             Link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            Falha no Build: ${{ needs.build.conclusion == 'failure' && 'Sim, veja os detalhes do erro acima' || 'Não houve falha' }}
-
+            
+            Equipe: Caio e Hector 🧙‍♂️
+            
