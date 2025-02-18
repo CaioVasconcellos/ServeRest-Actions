@@ -64,6 +64,16 @@ public class ProdutoClient extends BaseClient{
                 ;
     }
 
+    public Response listarProduto() {
+
+        return given()
+                .spec(super.set())
+                .when()
+                .get(PRODUTOS);
+
+    }
+
+
 
     public Response buscarProduto(String id){
         return

@@ -5,6 +5,7 @@ import com.vemser.rest.data.factory.UsuarioDataFactory;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
 import static org.hamcrest.Matchers.equalTo;
@@ -21,6 +22,7 @@ public class UsuariosDeleteTest {
     }
 
     @Test
+    @Tag("schema")
     public void testSchemaDeveExcluirUsuarioComSucesso() {
         usuarioClient.deletarUsuarios(usuarioId)
         .then()

@@ -6,10 +6,7 @@ import com.vemser.rest.model.Usuario;
 import com.vemser.rest.model.ListaUsuarioResponse;
 import com.vemser.rest.model.UsuarioResponse;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -39,6 +36,7 @@ public class UsuariosGetTest {
     }
 
     @Test
+    @Tag("schema")
     public void testSchemaListarTodosUsuariosComSucesso() {
                 usuarioClient.buscarTodosUsuario()
                 .then()

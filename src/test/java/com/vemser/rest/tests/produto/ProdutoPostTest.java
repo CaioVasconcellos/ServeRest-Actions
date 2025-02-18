@@ -10,10 +10,7 @@ import com.vemser.rest.model.Produto;
 import com.vemser.rest.model.Usuario;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -38,6 +35,7 @@ public class ProdutoPostTest {
     }
 
     @Test
+    @Tag("schema")
     public void testSchemaCadastrarProdutoValidoComSucesso() {
 
         Response response =

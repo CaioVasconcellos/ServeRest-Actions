@@ -6,6 +6,7 @@ import com.vemser.rest.model.Usuario;
 import io.restassured.response.Response;
 import org.hamcrest.Matchers;
 import org.junit.jupiter.api.AfterEach;
+import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -19,6 +20,7 @@ public class UsuariosPostTest {
 
 
     @Test
+    @Tag("schema")
     public void testSchemaDeveCadastrarUsuarioComSucesso() {
 
         Usuario usuario = UsuarioDataFactory.usuarioValido();

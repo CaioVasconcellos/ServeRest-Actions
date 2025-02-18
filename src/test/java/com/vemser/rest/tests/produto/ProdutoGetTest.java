@@ -9,10 +9,7 @@ import com.vemser.rest.data.factory.UsuarioDataFactory;
 import com.vemser.rest.model.Produto;
 import com.vemser.rest.model.Usuario;
 import io.restassured.response.Response;
-import org.junit.jupiter.api.AfterEach;
-import org.junit.jupiter.api.Assertions;
-import org.junit.jupiter.api.BeforeEach;
-import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.*;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
 
@@ -35,6 +32,7 @@ public class ProdutoGetTest {
     String authorization;
 
     @BeforeEach
+    @Tag("schema")
     public void setUp() {
         usuarioId = usuarioClient.cadastrarUsuarios(UsuarioDataFactory.usuarioValidoAdminTrue()).path("_id");
         Usuario usuario = usuarioClient.retornarUsuarioPathParam(usuarioId);
