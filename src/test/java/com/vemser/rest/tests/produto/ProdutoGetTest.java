@@ -47,6 +47,7 @@ public class ProdutoGetTest {
     }
 
     @Test
+    @Tag("schema")
     public void testSchemaListarProdutoVariavelSeparandoPorVirgulaComSucesso() {
 
         String variaveis = String.valueOf(precoProduto) + "," + descricaoProduto + "," + nomeProduto;

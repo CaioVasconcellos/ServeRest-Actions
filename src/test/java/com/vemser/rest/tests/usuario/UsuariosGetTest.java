@@ -214,6 +214,7 @@ public class UsuariosGetTest {
     }
 
     @Test
+    @Tag("schema")
     public void testSchemaBuscarUsuariosPorID() {
 
         String idUsuario = usuarioId;
