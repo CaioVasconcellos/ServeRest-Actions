@@ -41,7 +41,7 @@ public class UsuariosGetTest {
                 usuarioClient.buscarTodosUsuario()
                 .then()
                         .statusCode(200)
-                        .body(matchesJsonSchemaInClasspath("schemas\\todos_usuarios.json"))
+                        .body(matchesJsonSchemaInClasspath("todos_usuarios.json"))
                 ;
     }
 
