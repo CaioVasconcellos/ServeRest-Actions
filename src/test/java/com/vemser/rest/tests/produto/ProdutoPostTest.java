@@ -41,7 +41,7 @@ public class ProdutoPostTest {
         Response response =
                 produtoClient.cadastrarProduto(ProdutoDataFactory.produtoValido(), authorization)
                         .then().statusCode(201)
-                        .body(matchesJsonSchemaInClasspath("schemas\\criar_produto.json"))
+                        .body(matchesJsonSchemaInClasspath("criar_produto.json"))
                         .extract().response()
                 ;
         produtoId = response.path("_id");

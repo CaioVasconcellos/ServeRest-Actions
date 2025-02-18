@@ -41,7 +41,7 @@ public class ProdutoDeleteTest {
         produtoClient.deletarProduto(produtoId, authorization)
                 .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemas\\deletar_produto.json"))
+                .body(matchesJsonSchemaInClasspath("deletar_produto.json"))
         ;
     }
 
