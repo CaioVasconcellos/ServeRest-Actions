@@ -99,7 +99,7 @@ public class UsuariosGetTest {
         usuarioClient.listarUsuarioUmTipoQuery("nome", UsuarioDataFactory.usuarioValido().getNome())
         .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemas\\usuarios_por_nome.json"))
+                .body(matchesJsonSchemaInClasspath("schemas/usuarios_por_nome.json"))
         ;
     }
 
