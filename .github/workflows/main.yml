@@ -23,7 +23,7 @@ jobs:
           java-version: '17'
 
       - name: Build Maven Project
-        run: mvn clean install -DskipTests
+        run: mvn clean package -DskipTests
 
       - name: Armazenar build como artefato
         uses: actions/upload-artifact@v4
