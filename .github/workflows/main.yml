@@ -26,7 +26,7 @@ jobs:
         run: mvn clean install -DskipTests
 
       - name: Armazenar build como artefato
-        uses: action/upload-artifact@v3
+        uses: actions/upload-artifact@v3
         with:
           name: build-project
           path: target/
@@ -150,7 +150,7 @@ jobs:
           languages: 'java'
 
       - name: Perform CodeQL Analysis
-        uses: github/codeql-action/analyze@v3
+        uses: github/codeql-actions/analyze@v3
 
   notify-discord:
     runs-on: ubuntu-latest
