@@ -31,7 +31,7 @@ public class UsuariosPutTest {
         usuarioClient.atualizarUsuarios(usuarioId, usuarioAtualizado)
         .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemas/atualizar_usuario.json"))
+                .body(matchesJsonSchemaInClasspath("atualizar_usuario.json"))
         ;
     }
 
