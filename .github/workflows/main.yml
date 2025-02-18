@@ -55,9 +55,19 @@ jobs:
 
   codeql-analysis:
     runs-on: ubuntu-latest
+    needs: build
+    if: always()
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
+
+      - name: Cache CodeQL databases
+        uses: actions/cache@v3
+        with:
+          path: ~/.codeql
+          key: codeql-${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
+          restore-keys: |
+            codeql-${{ runner.os }}-java-
 
       - name: Initialize CodeQL
         uses: github/codeql-action/init@v3
@@ -79,7 +89,10 @@ jobs:
         with:
           args: |
             🚀 Pipeline concluído!
-            Status: ${{ job.status }}
+            Status do Build: ${{ needs.build.result }}
+            Status da Análise CodeQL: ${{ needs.codeql-analysis.result }}
             Repositório: ${{ github.repository }}
             Evento: ${{ github.event_name }}
             Link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
+            Falha no Build: ${{ needs.build.conclusion == 'failure' && 'Sim, veja os detalhes do erro acima' || 'Não houve falha' }}
+
