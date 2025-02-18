@@ -38,5 +38,5 @@ build/
 ### Mac OS ###
 .DS_Store
 
-
+#TODO: verificar se posso deixar
 allure-results
