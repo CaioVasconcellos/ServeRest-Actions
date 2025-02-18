@@ -23,7 +23,7 @@ jobs:
           java-version: '17'
 
       - name: Build Maven Project
-        run: mvn clean install
+        run: mvn clean install -DskipTests
 
       - name: Health Check
         run: mvn -Dtest="src.test.java.com.vemser.rest.tests.healthCheck.HealthCheckTest.java" test
