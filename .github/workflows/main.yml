@@ -130,6 +130,12 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Baixar build
+        uses: actions/download-artifact@v3
+        with:
+          name: build-project
+          path: target/
+
       - name: Cache CodeQL databases
         uses: actions/cache@v3
         with:
