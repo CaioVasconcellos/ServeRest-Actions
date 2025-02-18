@@ -149,7 +149,7 @@ jobs:
         - name: Baixar build do job anterior
           uses: actions/download-artifact@v4
           with:
-            name: projeto-funcional-test
+            name: projeto-buildado
             path: target/
 
 
