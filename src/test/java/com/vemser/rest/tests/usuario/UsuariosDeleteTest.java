@@ -27,7 +27,7 @@ public class UsuariosDeleteTest {
         usuarioClient.deletarUsuarios(usuarioId)
         .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemas\\deletar_usuario.json"))
+                .body(matchesJsonSchemaInClasspath("schemas/deletar_usuario.json"))
         ;
     }
 

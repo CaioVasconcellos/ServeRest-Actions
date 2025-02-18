@@ -35,7 +35,7 @@ public class LoginTest {
         client.realizarLogin(LoginDataFactory.loginValido(usuario))
         .then()
                  .statusCode(200)
-                 .body(matchesJsonSchemaInClasspath("schemas\\login_usuarios.json"))
+                 .body(matchesJsonSchemaInClasspath("schemas/login_usuarios.json"))
         ;
     }
 

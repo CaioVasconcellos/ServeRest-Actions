@@ -54,7 +54,7 @@ public class ProdutoGetTest {
         produtoClient.listarProdutoDiferentesQuery("preco,descricao,nome", variaveis)
         .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemas\\resgatar_produto_lista.json"))
+                .body(matchesJsonSchemaInClasspath("schemas/resgatar_produto_lista.json"))
         ;
     }
 
@@ -87,7 +87,7 @@ public class ProdutoGetTest {
         produtoClient.buscarProduto(produtoId)
         .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemas\\resgatar_produto_id.json"))
+                .body(matchesJsonSchemaInClasspath("schemas/resgatar_produto_id.json"))
 
         ;
     }

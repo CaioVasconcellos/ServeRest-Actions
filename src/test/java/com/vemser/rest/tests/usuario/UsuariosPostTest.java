@@ -28,7 +28,7 @@ public class UsuariosPostTest {
                 usuarioClient.cadastrarUsuarios(usuario)
                 .then()
                         .statusCode(201)
-                        .body(matchesJsonSchemaInClasspath("schemas\\criar_usuario.json"))
+                        .body(matchesJsonSchemaInClasspath("schemas/criar_usuario.json"))
                         .extract().response()
                 ;
         idUsuario = response.path("_id");

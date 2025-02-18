@@ -44,7 +44,7 @@ public class ProdutoPutTest {
         produtoClient.atualizarProduto(produtoId,ProdutoDataFactory.atualizarPrecoProdutoValido(),authorization)
         .then()
                 .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("schemas\\atualizar_produto.json"))
+                .body(matchesJsonSchemaInClasspath("schemas/atualizar_produto.json"))
         ;
     }
 
