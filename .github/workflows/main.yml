@@ -112,7 +112,7 @@ jobs:
 
       - name: Baixar build do job anterior
         env:
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
+          GH_TOKEN: ${{ github.token }}
         run: |
           if ! gh run download -n projeto-funcional-test -D target/; then
             if ! gh run download -n projeto-contrato-test -D target/; then
