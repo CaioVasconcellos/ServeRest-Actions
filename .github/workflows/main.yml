@@ -174,7 +174,7 @@ jobs:
         run: |
                 mvn sonar:sonar \
                   -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
-                  -Dsonar.organization=seu_organizacao_no_sonar \
+                  -Dsonar.organization=caiovasconcellos \
                   -Dsonar.host.url=https://sonarcloud.io \
                   -Dsonar.login=${{ secrets.SONAR_TOKEN }}
 
