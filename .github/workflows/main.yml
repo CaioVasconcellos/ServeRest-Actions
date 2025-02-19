@@ -187,8 +187,10 @@ jobs:
               -Dsonar.organization=caiovasconcellos \
               -Dsonar.host.url=https://sonarcloud.io \
               -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-              -Dsonar.sources=src \
+              -Dsonar.sources=src/main/java \
+              -Dsonar.tests=src/test/java \
               -Dsonar.java.binaries=target/classes
+          
 
 #      - name: SonarCloud Scan
 #        uses: SonarSource/sonarcloud-github-action@master
