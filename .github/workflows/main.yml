@@ -167,23 +167,28 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Setup Java
-        uses: actions/setup-java@v3
-        with:
-          java-version: 17
-          distribution: 'temurin'
+      - name: Compilar e rodar análise do SonarCloud
+        run: |
+            mvn clean verify sonar:sonar \
+              -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
+              -Dsonar.organization=caiovasconcellos \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }}    
 
-      - name: SonarCloud Scan
-        uses: SonarSource/sonarcloud-github-action@master
-        env:
-          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
-          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        with:
-          args: >
-            -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions
-            -Dsonar.projectName=ServeRest-Actions
-            -Dsonar.sources=src
-            -Dsonar.java.binaries=target/classes
+
+
+#      - name: SonarCloud Scan
+#        uses: SonarSource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        with:
+#          args: >
+#            -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions
+#            -Dsonar.projectName=ServeRest-Actions
+#            -Dsonar.sources=src
+#            -Dsonar.java.binaries=target/classes
+            
 
   notify-discord:
     runs-on: ubuntu-latest
