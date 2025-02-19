@@ -170,7 +170,7 @@ jobs:
 #          uses: github/codeql-action/analyze@v3
 
   sonarqube:
-    needs: [ build ]
+    needs: [ funcional-test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
