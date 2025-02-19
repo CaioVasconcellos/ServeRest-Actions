@@ -187,9 +187,9 @@ jobs:
         run: |
           mvn sonar:sonar -Dsonar.login=$SONAR_TOKEN \
             -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.branch.name=main \
             -Dsonar.organization=caiovasconcellos \
             -Dsonar.projectKey=caiovasconcellos 
-            -Dsonar.branch.name=main 
 
   notify-discord:
     runs-on: ubuntu-latest
