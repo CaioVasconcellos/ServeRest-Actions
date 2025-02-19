@@ -20,6 +20,15 @@
         <sonar.qualitygate.wait>true</sonar.qualitygate.wait>
     </properties>
 
+    <configuration>
+        <forkCount>2</forkCount> <!-- Aumenta o número de forks paralelos -->
+        <reuseForks>true</reuseForks> <!-- Reutiliza forks para melhorar o desempenho -->
+        <timeout>60000</timeout> <!-- Ajuste o tempo de timeout para testes que podem demorar -->
+        <systemPropertyVariables>
+            <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+        </systemPropertyVariables>
+    </configuration>
+
 
     <dependencies>
 
@@ -87,6 +96,9 @@
                 <artifactId>maven-surefire-plugin</artifactId>
                 <version>3.1.2</version>
                 <configuration>
+                    <forkCount>2</forkCount>
+                    <reuseForks>true</reuseForks>
+                    <forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
