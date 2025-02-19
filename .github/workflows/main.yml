@@ -116,6 +116,20 @@ jobs:
           name: projeto-funcional-test
           path: target/
 
+      - name: Baixar build contrato
+        if: failure()
+        uses: actions/download-artifact@v4
+        with:
+            name: projeto-contrato-test
+            path: target/
+
+      - name: Baixar build do health check
+        if: failure()
+        uses: actions/download-artifact@v4
+        with:
+          name: projeto-health-check
+          path: target/
+
       - name: Gerar relatório Allure
         if: always()
         run: |
