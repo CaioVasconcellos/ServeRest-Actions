@@ -170,6 +170,7 @@ jobs:
 #          uses: github/codeql-action/analyze@v3
 
   sonarqube:
+    needs: [ build ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -220,7 +221,7 @@ jobs:
                     "inline": true
                   },
                   {
-                    "name": "🩺 Health Check | Sonarqube ",
+                    "name": "🩺 Sonarqube ",
                     "value": "**${{ needs.sonarqube.result }}**",
                     "inline": true
                   },
