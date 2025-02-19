@@ -162,29 +162,35 @@ jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
-        - uses: actions/checkout@v4
-          with:
-            fetch-depth: 0  # Shallow clones should be disabled for a better relevancy of analysis
-        - name: Cache SonarQube packages
-          uses: actions/cache@v4
-          with:
-            path: ~/.sonar/cache
-            key: ${{ runner.os }}-sonar
-            restore-keys: ${{ runner.os }}-sonar
-        - name: Cache Maven packages
-          uses: actions/cache@v4
-          with:
-            path: ~/.m2
-            key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
-            restore-keys: ${{ runner.os }}-m2
-        - name: Build and analyze
-          env:
-            SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-          run: mvn -B verify -DskipTests org.sonarsource.scanner.maven:sonar-maven-plugin:sonar -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # Desabilita clones rasos para garantir relevância da análise
+      - name: Cache SonarQube packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.sonar/cache
+          key: ${{ runner.os }}-sonar
+          restore-keys: ${{ runner.os }}-sonar
+      - name: Cache Maven packages
+        uses: actions/cache@v4
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
+      - name: Build and analyze
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          mvn clean install -DskipTests
+          mvn sonar:sonar \
+              -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
+              -Dsonar.organization=caiovasconcellos \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+              -Dsonar.sources=src \
+              -Dsonar.java.binaries=target/classes
 
-
-
-            #      - name: SonarCloud Scan
+#      - name: SonarCloud Scan
 #        uses: SonarSource/sonarcloud-github-action@master
 #        env:
 #          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
