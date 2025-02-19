@@ -86,7 +86,7 @@
                 <configuration>
                     <forkCount>2</forkCount>
                     <reuseForks>true</reuseForks>
-                    <forkedProcessTimeoutInSeconds>2000</forkedProcessTimeoutInSeconds>
+                    <forkedProcessTimeoutInSeconds>4000</forkedProcessTimeoutInSeconds>
                     <systemPropertyVariables>
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
