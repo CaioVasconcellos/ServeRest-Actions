@@ -1,4 +1,5 @@
 # ServeRest-Actions
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=CaioVasconcellos_ServeRest-Actions&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=CaioVasconcellos_ServeRest-Actions)
 
 
 ## Descrição
