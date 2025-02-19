@@ -132,7 +132,7 @@ jobs:
           github_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: ./target/site/allure-maven-plugin
 
-  analyze:
+  codeql-analysis:
     name: "Analyze Java Code"
     runs-on: ubuntu-latest
 
