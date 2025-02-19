@@ -187,17 +187,16 @@ jobs:
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
-          mvn clean install -DskipTests
-          mvn test  # Executa os testes para gerar os relatórios de cobertura
+          mvn clean install -DskipTests  # Ignora os testes, mas compila o código
           mvn sonar:sonar \
-            -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
-            -Dsonar.organization=caiovasconcellos \
-            -Dsonar.host.url=https://sonarcloud.io \
-            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-            -Dsonar.sources=src/main/java \
-            -Dsonar.tests=src/test/java \
-            -Dsonar.java.binaries=target/classes \
-            -Dsonar.jacoco.reportPaths=target/jacoco-coverage.xml
+          -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
+          -Dsonar.organization=caiovasconcellos \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.sources=src/main/java \
+          -Dsonar.tests=src/test/java \
+          -Dsonar.java.binaries=target/classes \
+          -Dsonar.jacoco.reportPaths=target/jacoco-coverage.xml  # Se você tiver cobertura de testes de outro lugar
           
 
 #      - name: SonarCloud Scan
