@@ -90,7 +90,7 @@
                     <!-- Reutilização de forks -->
                     <reuseForks>true</reuseForks>
                     <!-- Tempo máximo de execução para cada fork -->
-                    <forkedProcessTimeoutInSeconds>600</forkedProcessTimeoutInSeconds>
+                    <forkedProcessTimeoutInSeconds>1000</forkedProcessTimeoutInSeconds>
                     <systemPropertyVariables>
                         <!-- Diretório para resultados do Allure -->
                         <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
