@@ -175,18 +175,30 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
           args: |
-            🚀 Pipeline concluído!
-            Status dos Jobs:
-            - Build: ${{ needs.build.result }}
-            - Análise CodeQL: ${{ needs.codeql-analysis.result }}
-            - Health Check: ${{ needs.health-check.result }}
-            - Testes de Contrato: ${{ needs.contrato-test.result }}
-            - Testes Funcionais: ${{ needs.funcional-test.result }}
-            - Relatório Allure: ${{ needs.relatorio-allure.result }}
-            
-            Repositório: ${{ github.repository }}
-            Evento: ${{ github.event_name }}
-            Link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            
-            Equipe: Caio e Hector 🧙‍♂️
+              curl -H "Content-Type: application/json" -X POST -d '{
+                "username": "GitHub Actions",
+                "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                "embeds": [
+                  {
+                    "title": "🚀 Deploy do Allure Report!",
+                    "description": "O Allure Report está no ar e pronto para ser visto. Clique no link no título.",
+                    "color": 3066993,
+                    "fields": [
+                      {
+                        "name": "📌 Status",
+                        "value": "✅ **Deploy com Sucesso**",
+                        "inline": true
+                      },
+                      {
+                        "name": "🔄 Deploy via",
+                        "value": "GitHub Actions • Hoje às '"$(date +'%H:%M')"'",
+                        "inline": true
+                      }
+                    ],
+                    "footer": {
+                      "text": "Deploy automatizado via GitHub Actions"
+                    }
+                  }
+                ]
+              }' "${{ secrets.DISCORD_WEBHOOK_URL }}"
             
