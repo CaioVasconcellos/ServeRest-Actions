@@ -168,7 +168,6 @@ jobs:
         uses: Ilshidur/action-discord@master
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
-        with:
           run: |
           curl -H "Content-Type: application/json" -X POST -d '{
           "username": "GitHub Actions 🚀",
@@ -233,4 +232,4 @@ jobs:
             }
           ]
             }`${{ secrets.DISCORD_WEBHOOK }}
-            
+
