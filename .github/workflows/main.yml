@@ -182,7 +182,8 @@ jobs:
         run: mvn clean verify -DskipTests
 
       - name: Configuration
-        run: -Dsonar.organization=CaioVasconcellos \
+        run: |
+          mvn sonar:sonar-Dsonar.organization=CaioVasconcellos \
           -Dsonar.projectKey=CaioVasconcellos
 
       - name: Run SonarCloud Scan
