@@ -93,7 +93,7 @@ jobs:
           path: target/
 
       - name: Testes Funcionais
-        run: mvn test -DexcludedGroups=schema
+        run: mvn test -DexcludedGroups=schema -Dsurefire.timeout=4000
         continue-on-error: false
 
       - name: Armazenar build como artefato
@@ -170,6 +170,7 @@ jobs:
 #          uses: github/codeql-action/analyze@v3
 
   sonarqube:
+    needs: [ funcional-test ]
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -220,7 +221,7 @@ jobs:
                     "inline": true
                   },
                   {
-                    "name": "🩺 Health Check | Sonarqube ",
+                    "name": "🩺 Sonarqube ",
                     "value": "**${{ needs.sonarqube.result }}**",
                     "inline": true
                   },
