@@ -170,18 +170,67 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
           args: |
-            🚀 Pipeline concluído!
-            Status dos Jobs:
-            - Build: ${{ needs.build.result }}
-            - Análise CodeQL: ${{ needs.codeql-analysis.result }}
-            - Health Check: ${{ needs.health-check.result }}
-            - Testes de Contrato: ${{ needs.contrato-test.result }}
-            - Testes Funcionais: ${{ needs.funcional-test.result }}
-            - Relatório Allure: ${{ needs.relatorio-allure.result }}
-            
-            Repositório: ${{ github.repository }}
-            Evento: ${{ github.event_name }}
-            Link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            
-            Equipe: Caio e Hector 🧙‍♂️
+          curl -H "Content-Type: application/json" -X POST -d '{
+          "username": "GitHub Actions 🚀",
+          "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "embeds": [
+            {
+              "title": "🚀 Pipeline Concluído!",
+              "description": "O pipeline foi executado e os resultados estão disponíveis abaixo.",
+              "color": 3066993,
+              "fields": [
+                {
+                  "name": "🔨 Build",
+                  "value": "**${{ needs.build.result }}**",
+                  "inline": true
+                },
+                {
+                  "name": "🔎 Análise CodeQL",
+                  "value": "**${{ needs.codeql-analysis.result }}**",
+                  "inline": true
+                },
+                {
+                  "name": "🩺 Health Check",
+                  "value": "**${{ needs.health-check.result }}**",
+                  "inline": true
+                },
+                {
+                  "name": "📜 Testes de Contrato",
+                  "value": "**${{ needs.contrato-test.result }}**",
+                  "inline": true
+                },
+                {
+                  "name": "🛠️ Testes Funcionais",
+                  "value": "**${{ needs.funcional-test.result }}**",
+                  "inline": true
+                },
+                {
+                  "name": "📊 Relatório Allure",
+                  "value": "**${{ needs.relatorio-allure.result }}**",
+                  "inline": true
+                },
+                {
+                  "name": "📂 Repositório",
+                  "value": "[${{ github.repository }}](https://github.com/${{ github.repository }})",
+                  "inline": false
+                },
+                {
+                  "name": "🛎️ Evento",
+                  "value": "**${{ github.event_name }}**",
+                  "inline": true
+                },
+                {
+                  "name": "🔗 Link para a execução",
+                  "value": "[Clique aqui](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                  "inline": true
+                }
+              ],
+              "footer": {
+                "text": "Equipe: Caio e Hector 🧙‍♂️",
+                "icon_url": "https://cdn-icons-png.flaticon.com/512/163/163801.png"
+              },
+              "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"
+            }
+          ]
+            }`${{ secrets.DISCORD_WEBHOOK }}
             
