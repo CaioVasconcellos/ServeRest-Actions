@@ -170,23 +170,39 @@ jobs:
     if: always()
     steps:
       - name: Notificar Discord
-        uses: Ilshidur/action-discord@master
-        env:
-          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        uses: MineBartekSA/discord-webhook@v2
         with:
-          args: |
-            🚀 Pipeline concluído!
-            Status dos Jobs:
-            - Build: ${{ needs.build.result }}
-            - Análise CodeQL: ${{ needs.codeql-analysis.result }}
-            - Health Check: ${{ needs.health-check.result }}
-            - Testes de Contrato: ${{ needs.contrato-test.result }}
-            - Testes Funcionais: ${{ needs.funcional-test.result }}
-            - Relatório Allure: ${{ needs.relatorio-allure.result }}
-            
-            Repositório: ${{ github.repository }}
-            Evento: ${{ github.event_name }}
-            Link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            
-            Equipe: Caio e Hector 🧙‍♂️
-            
+          webhook: ${{ secrets.WEBHOOK_URL }}
+          embed: |
+            {
+              "title": "🚀 Pipeline Concluído!",
+              "color": 3066993,
+              "fields": [
+                {
+                  "name": "📊 Status dos Jobs",
+                  "value": "- **Build**: `${{ needs.build.result }}`\n- **Análise CodeQL**: `${{ needs.codeql-analysis.result }}`\n- **Health Check**: `${{ needs.health-check.result }}`\n- **Testes de Contrato**: `${{ needs.contrato-test.result }}`\n- **Testes Funcionais**: `${{ needs.funcional-test.result }}`\n- **Relatório Allure**: `${{ needs.relatorio-allure.result }}`",
+                  "inline": false
+                },
+                {
+                  "name": "📌 Repositório",
+                  "value": "`${{ github.repository }}`",
+                  "inline": true
+                },
+                {
+                  "name": "🎯 Evento",
+                  "value": "`${{ github.event_name }}`",
+                  "inline": true
+                },
+                {
+                  "name": "🔗 Link",
+                  "value": "[Clique aqui](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
+                  "inline": false
+                },
+                {
+                  "name": "👥 Equipe",
+                  "value": "Caio e Hector 🧙‍♂️",
+                  "inline": false
+                }
+              ]
+            }
+  
