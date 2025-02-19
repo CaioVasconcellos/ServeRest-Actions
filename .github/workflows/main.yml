@@ -159,6 +159,40 @@ jobs:
         - name: Perform CodeQL Analysis
           uses: github/codeql-action/analyze@v3
 
+  sonarqube:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Rodar Testes sem Interromper Pipeline
+        run: mvn test || true
+
+      - name: Rodar Análise do SonarCloud
+        run: |
+                mvn sonar:sonar \
+                  -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
+                  -Dsonar.organization=caiovasconcellos \
+                  -Dsonar.host.url=https://sonarcloud.io \
+                  -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+
+
+
+#      - name: SonarCloud Scan
+#        uses: SonarSource/sonarcloud-github-action@master
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.PERSONAL_TOKEN }}
+#          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+#        with:
+#          args: >
+#            -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions
+#            -Dsonar.projectName=ServeRest-Actions
+#            -Dsonar.sources=src
+#            -Dsonar.java.binaries=target/classes
+            
+
   notify-discord:
     runs-on: ubuntu-latest
     needs: [ build, health-check, contrato-test, funcional-test,codeql-analysis, relatorio-allure ]
