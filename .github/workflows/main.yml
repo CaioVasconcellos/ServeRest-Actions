@@ -93,7 +93,7 @@ jobs:
           path: target/
 
       - name: Testes Funcionais
-        run: mvn test -DexcludedGroups=schema
+        run: mvn test -DexcludedGroups=schema -Dsurefire.timeout=4000
         continue-on-error: false
 
       - name: Armazenar build como artefato
