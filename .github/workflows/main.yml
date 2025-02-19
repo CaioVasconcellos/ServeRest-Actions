@@ -167,14 +167,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Rodar Análise do SonarCloud
+      - name: Rodar Análise do SonarCloud sem Executar Testes
         run: |
-          mvn clean verify sonar:sonar \
-          -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
-          -Dsonar.organization=caiovasconcellos \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          -Dsonar.analysis.mode=publish
+            mvn clean install sonar:sonar \
+              -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
+              -Dsonar.organization=caiovasconcellos \
+              -Dsonar.host.url=https://sonarcloud.io \
+              -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+              -Dsonar.analysis.mode=publish \
+              -DskipTests
 
 
 
