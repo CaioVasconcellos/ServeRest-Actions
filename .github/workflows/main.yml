@@ -169,7 +169,7 @@ jobs:
         env:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
-          args: |
+          run: |
           curl -H "Content-Type: application/json" -X POST -d '{
           "username": "GitHub Actions 🚀",
           "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
