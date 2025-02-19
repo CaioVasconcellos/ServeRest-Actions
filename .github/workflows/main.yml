@@ -134,40 +134,27 @@ jobs:
 
   codeql-analysis:
       runs-on: ubuntu-latest
-      needs: build
-      if: always()
+      permissions:
+        actions: read
+        contents: read
+        security-events: write
+
+      strategy:
+        fail-fast: false
+        matrix:
+          language: ['java']
+
       steps:
         - name: Check out repository
           uses: actions/checkout@v4
 
-        - name: Set up JDK
-          uses: actions/setup-java@v3
-          with:
-            java-version: '17'
-            distribution: 'temurin'
-
-        - name: Baixar build do job anterior
-          uses: actions/download-artifact@v4
-          with:
-            name: projeto-buildado
-            path: target/
-
-
-        - name: Build project
-          run: mvn clean install -DskipTests
-
-        - name: Cache CodeQL databases
-          uses: actions/cache@v4
-          with:
-            path: ~/.codeql
-            key: codeql-${{ runner.os }}-java-${{ hashFiles('**/pom.xml') }}
-            restore-keys: |
-              codeql-${{ runner.os }}-java-
-
         - name: Initialize CodeQL
           uses: github/codeql-action/init@v3
           with:
-            languages: 'java'
+            languages: ${{ matrix.language }}
+
+        - name: Autobuild
+          uses: github/codeql-action/autobuild@v3
 
         - name: Perform CodeQL Analysis
           uses: github/codeql-action/analyze@v3
@@ -183,18 +170,30 @@ jobs:
           DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         with:
           args: |
-            🚀 Pipeline concluído!
-            Status dos Jobs:
-            - Build: ${{ needs.build.result }}
-            - Análise CodeQL: ${{ needs.codeql-analysis.result }}
-            - Health Check: ${{ needs.health-check.result }}
-            - Testes de Contrato: ${{ needs.contrato-test.result }}
-            - Testes Funcionais: ${{ needs.funcional-test.result }}
-            - Relatório Allure: ${{ needs.relatorio-allure.result }}
-            
-            Repositório: ${{ github.repository }}
-            Evento: ${{ github.event_name }}
-            Link: https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }}
-            
-            Equipe: Caio e Hector 🧙‍♂️
+              curl -H "Content-Type: application/json" -X POST -d '{
+                "username": "GitHub Actions",
+                "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+                "embeds": [
+                  {
+                    "title": "🚀 Deploy do Allure Report!",
+                    "description": "O Allure Report está no ar e pronto para ser visto. Clique no link no título.",
+                    "color": 3066993,
+                    "fields": [
+                      {
+                        "name": "📌 Status",
+                        "value": "✅ **Deploy com Sucesso**",
+                        "inline": true
+                      },
+                      {
+                        "name": "🔄 Deploy via",
+                        "value": "GitHub Actions • Hoje às '"$(date +'%H:%M')"'",
+                        "inline": true
+                      }
+                    ],
+                    "footer": {
+                      "text": "Deploy automatizado via GitHub Actions"
+                    }
+                  }
+                ]
+              }' "${{ secrets.DISCORD_WEBHOOK_URL }}"
             
