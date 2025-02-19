@@ -165,31 +165,39 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0  # Desabilita clones rasos para garantir relevância da análise
+
+      # Cache do SonarQube
       - name: Cache SonarQube packages
         uses: actions/cache@v4
         with:
           path: ~/.sonar/cache
           key: ${{ runner.os }}-sonar
           restore-keys: ${{ runner.os }}-sonar
+
+      # Cache do Maven
       - name: Cache Maven packages
         uses: actions/cache@v4
         with:
           path: ~/.m2
           key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
           restore-keys: ${{ runner.os }}-m2
+
+      # Instalação e análise
       - name: Build and analyze
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         run: |
           mvn clean install -DskipTests
+          mvn test  # Executa os testes para gerar os relatórios de cobertura
           mvn sonar:sonar \
-              -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
-              -Dsonar.organization=caiovasconcellos \
-              -Dsonar.host.url=https://sonarcloud.io \
-              -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-              -Dsonar.sources=src/main/java \
-              -Dsonar.tests=src/test/java \
-              -Dsonar.java.binaries=target/classes
+            -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
+            -Dsonar.organization=caiovasconcellos \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+            -Dsonar.sources=src/main/java \
+            -Dsonar.tests=src/test/java \
+            -Dsonar.java.binaries=target/classes \
+            -Dsonar.jacoco.reportPaths=target/jacoco-coverage.xml
           
 
 #      - name: SonarCloud Scan
