@@ -111,24 +111,12 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Baixar build do job anterior
-        uses: actions/download-artifact@v4
-        with:
-          name: projeto-funcional-test
-          path: target/
-
-      - name: Baixar build contrato
-        if: failure()
-        uses: actions/download-artifact@v4
-        with:
-            name: projeto-contrato-test
-            path: target/
-
-      - name: Baixar build do health check
-        if: failure()
-        uses: actions/download-artifact@v4
-        with:
-          name: projeto-health-check
-          path: target/
+        run: |
+          if ! gh run download -n projeto-funcional-test -D target/; then
+            if ! gh run download -n projeto-contrato-test -D target/; then
+              gh run download -n projeto-health-check -D target/
+            fi
+          fi
 
       - name: Gerar relatório Allure
         if: always()
