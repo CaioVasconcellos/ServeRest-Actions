@@ -164,23 +164,12 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
-          fetch-depth: 0  # Desabilita clones rasos para garantir relevância da análise
-
-      # Instalação e análise
-      - name: Build and analyze
+          fetch-depth: 0
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@<action version>
         env:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-        run: |
-          mvn clean verify -DskipTests
-          mvn sonar:sonar \
-          -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
-          -Dsonar.organization=caiovasconcellos \
-          -Dsonar.host.url=https://sonarcloud.io \
-          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
-          -Dsonar.sources=src/main/java \
-          -Dsonar.tests=src/test/java \
-          -Dsonar.java.binaries=target/classes \
-          -Dsonar.jacoco.reportPaths=target/jacoco-coverage.xml
+          SONAR_HOST_URL: ${{ vars.SONAR_HOST_URL }}
           
 
 #      - name: SonarCloud Scan
