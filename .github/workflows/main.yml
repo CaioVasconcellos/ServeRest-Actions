@@ -161,7 +161,7 @@ jobs:
 
   notify-discord:
     runs-on: ubuntu-latest
-    needs: [ build, codeql-analysis, health-check, contrato-test, funcional-test, relatorio-allure ]
+    needs: [ relatorio-allure ]
     if: always()
     steps:
       - name: Notificar Discord
@@ -169,8 +169,8 @@ jobs:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H "Content-Type: application/json" -X POST -d '{
-            "username": "GitHub Actions 🚀",
-            "avatar_url": "https://github.githubassets.com/images/modules/logos_page/GitHub-Mark.png",
+            "username": "Megazord da Qualidade",
+            "avatar_url": "https://cdn.discordapp.com/attachments/1341477241929859165/1341772925963079732/1666124032484.png?ex=67b736ea&is=67b5e56a&hm=4aa1569b8b40b5f0dbc6fa0af5694f65ad689bab5ea06c2902410b8182236dc0&",
             "embeds": [
               {
                 "title": "🚀 Pipeline Concluído!",
@@ -222,11 +222,16 @@ jobs:
                     "name": "🔗 Link para a execução",
                     "value": "[Clique aqui](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
                     "inline": true
+                  },
+                  {
+                    "name": "🧑‍💻 Atualizado por",
+                    "value": "${{ github.actor }}",
+                    "inline": false
                   }
                 ],
                 "footer": {
-                  "text": "Equipe: Caio e Hector 🧙‍♂️",
-                  "icon_url": "https://cdn-icons-png.flaticon.com/512/163/163801.png"
+                  "text": "Equipe: Caio e Hector ️",
+                  "icon_url": "https://img.icons8.com/?size=100&id=W0h7DwgCTpon&format=png&color=000000"
                 },
                 "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"
               }
