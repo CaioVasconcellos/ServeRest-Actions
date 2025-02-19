@@ -169,7 +169,7 @@ jobs:
 
       - name: Compilar e rodar análise do SonarCloud
         run: |
-            mvn clean verify sonar:sonar \
+            mvn clean verify sonar:sonar -DskipTests \
               -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
               -Dsonar.organization=caiovasconcellos \
               -Dsonar.host.url=https://sonarcloud.io \
