@@ -111,6 +111,7 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Baixar build do job anterior
+        env: ${{ secrets.GITHUB_TOKEN }}
         run: |
           if ! gh run download -n projeto-funcional-test -D target/; then
             if ! gh run download -n projeto-contrato-test -D target/; then

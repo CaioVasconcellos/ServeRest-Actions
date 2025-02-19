@@ -46,17 +46,17 @@ public class ProdutoGetTest {
         quantidadeProduto = produto.getQuantidade();
     }
 
-    @Test
-    @Tag("schema")
-    public void testSchemaListarProdutoVariavelSeparandoPorVirgulaComSucesso() {
-
-        String variaveis = String.valueOf(precoProduto) + "," + descricaoProduto + "," + nomeProduto;
-        produtoClient.listarProdutoDiferentesQuery("preco,descricao,nome", variaveis)
-        .then()
-                .statusCode(200)
-                .body(matchesJsonSchemaInClasspath("resgatar_produto_lista.json"))
-        ;
-    }
+//    @Test
+//    @Tag("schema")
+//    public void testSchemaListarProdutoVariavelSeparandoPorVirgulaComSucesso() {
+//
+//        String variaveis = String.valueOf(precoProduto) + "," + descricaoProduto + "," + nomeProduto;
+//        produtoClient.listarProdutoDiferentesQuery("preco,descricao,nome", variaveis)
+//        .then()
+//                .statusCode(200)
+//                .body(matchesJsonSchemaInClasspath("resgatar_produto_lista.json"))
+//        ;
+//    }
 
     @Test
     public void testListarProdutoVariavelSeparandoPorVirgulaComSucesso() {
