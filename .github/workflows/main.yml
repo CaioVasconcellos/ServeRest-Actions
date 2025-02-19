@@ -180,7 +180,7 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
         with:
           args: >
-            -Dsonar.projectKey=caiovasconcellos
+            -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions
             -Dsonar.projectName=ServeRest-Actions
             -Dsonar.sources=src
             -Dsonar.java.binaries=target/classes
