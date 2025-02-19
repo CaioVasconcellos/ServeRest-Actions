@@ -167,16 +167,14 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Rodar Testes sem Interromper Pipeline
-        run: mvn test || true
-
       - name: Rodar Análise do SonarCloud
         run: |
-                mvn sonar:sonar \
-                  -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
-                  -Dsonar.organization=caiovasconcellos \
-                  -Dsonar.host.url=https://sonarcloud.io \
-                  -Dsonar.login=${{ secrets.SONAR_TOKEN }}
+          mvn clean verify sonar:sonar \
+          -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
+          -Dsonar.organization=caiovasconcellos \
+          -Dsonar.host.url=https://sonarcloud.io \
+          -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
+          -Dsonar.analysis.mode=publish
 
 
 
