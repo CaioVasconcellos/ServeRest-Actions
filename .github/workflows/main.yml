@@ -198,6 +198,11 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
+          color=3066993  # padrão verde (sucesso)
+          if [[ "${{ needs.build.result }}" == "failure" || "${{ needs.codeql-analysis.result }}" == "failure" || "${{ needs.health-check.result }}" == "failure" || "${{ needs.contrato-test.result }}" == "failure" || "${{ needs.funcional-test.result }}" == "failure" || "${{ needs.relatorio-allure.result }}" == "failure" ]]; then
+            color=15158332  # vermelho (falha)
+          fi
+          
           curl -H "Content-Type: application/json" -X POST -d '{
             "username": "Megazord da Qualidade",
             "avatar_url": "https://cdn.discordapp.com/attachments/1341477241929859165/1341772925963079732/1666124032484.png?ex=67b736ea&is=67b5e56a&hm=4aa1569b8b40b5f0dbc6fa0af5694f65ad689bab5ea06c2902410b8182236dc0&",
