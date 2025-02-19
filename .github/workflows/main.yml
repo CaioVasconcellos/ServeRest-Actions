@@ -162,23 +162,19 @@ jobs:
   sonarqube:
     runs-on: ubuntu-latest
     steps:
-      - name: Checkout Code
-        uses: actions/checkout@v4
+      - uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Rodar Testes sem Interromper Pipeline
-        run: mvn test || true
+      - name: Build Maven Project
+        run: mvn clean install -DskipTests
 
-      - name: Rodar Análise do SonarCloud
-        run: |
-                mvn sonar:sonar \
-                  -Dsonar.projectKey=CaioVasconcellos_ServeRest-Actions \
-                  -Dsonar.organization=caiovasconcellos \
-                  -Dsonar.host.url=https://sonarcloud.io \
-                  -Dsonar.login=${{ secrets.SONAR_TOKEN }}
-
-
+      - name: SonarQube Scan
+        uses: SonarSource/sonarqube-scan-action@v3
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+          
 
 #      - name: SonarCloud Scan
 #        uses: SonarSource/sonarcloud-github-action@master
