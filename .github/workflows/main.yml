@@ -165,7 +165,8 @@ jobs:
     if: always()
     steps:
       - name: Notificar Discord
-        env: ${{ secrets.DISCORD_WEBHOOK_URL }}
+        env:
+          DISCORD_WEBHOOK: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H "Content-Type: application/json" -X POST -d '{
             "username": "GitHub Actions 🚀",
