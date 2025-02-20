@@ -94,7 +94,7 @@ public class UsuarioDataFactory {
     private static Usuario novoUsuario(){
 
         Usuario usuario = new Usuario();
-        usuario.setNome(faker.name().fullName());
+        usuario.setNome(faker.name() + faker.name().fullName());
         usuario.setEmail(faker.internet().emailAddress());
         usuario.setPassword(faker.internet().password());
         usuario.setAdministrador(String.valueOf(faker.bool().bool()));

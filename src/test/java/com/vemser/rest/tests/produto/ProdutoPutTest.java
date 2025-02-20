@@ -15,7 +15,6 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
-import org.junitpioneer.jupiter.RetryingTest;
 
 import static com.vemser.rest.data.provider.ProdutoProvider.PATH_PRODUTO_PROVIDER;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -55,7 +54,7 @@ public class ProdutoPutTest {
         .then().statusCode(200);
     }
 
-    @RetryingTest(3)
+
     @ParameterizedTest
     @MethodSource(PATH_PRODUTO_PROVIDER + "#produtoInvalidoStatus400DataProvider")
     public void testAtualizarProdutoInvalidoStatus400SemSucesso(Produto produto, String campo, String value){
