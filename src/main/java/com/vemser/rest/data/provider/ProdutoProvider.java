@@ -42,7 +42,7 @@ public class ProdutoProvider {
 
     public static Stream<Arguments> produtoResgatarListaInvalidoDataProvider() {
         return Stream.of(
-//                Arguments.of(ID, ID_INVALIDO, "quantidade", 0),
+                Arguments.of(ID, ID_INVALIDO, "quantidade", 0),
                 Arguments.of(ID, ID_ZERO, "quantidade", 0),
                 Arguments.of(QUERY_NOME, NOME_INVALIDO, "quantidade", 0)
         );

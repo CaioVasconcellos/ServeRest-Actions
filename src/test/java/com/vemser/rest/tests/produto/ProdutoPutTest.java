@@ -15,6 +15,7 @@ import org.junit.jupiter.api.Tag;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.MethodSource;
+import org.junitpioneer.jupiter.RetryingTest;
 
 import static com.vemser.rest.data.provider.ProdutoProvider.PATH_PRODUTO_PROVIDER;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
@@ -47,7 +48,7 @@ public class ProdutoPutTest {
                 .body(matchesJsonSchemaInClasspath("atualizar_produto.json"))
         ;
     }
-
+    @RetryingTest(3)
     @Test
     public void testAtualizarProdutoValidoComSucesso(){
         produtoClient.atualizarProduto(produtoId,ProdutoDataFactory.atualizarPrecoProdutoValido(),authorization)

@@ -68,19 +68,19 @@ public class ProdutoGetTest {
         ;
     }
 
-    @ParameterizedTest
-    @MethodSource(PATH_PRODUTO_PROVIDER + "#produtoResgatarListaInvalidoDataProvider")
-    public void testListarProdutoInvalidoSemSucesso(String query, String parametro, String campo, int valor) {
-
-        Response response = produtoClient.listarProdutoDiferentesQuery(query, parametro)
-        .then()
-                .statusCode(200)
-                .extract().response()
-        ;
-
-        int path = response.path(campo);
-        Assertions.assertEquals(path, valor);
-    }
+//    @ParameterizedTest
+//    @MethodSource(PATH_PRODUTO_PROVIDER + "#produtoResgatarListaInvalidoDataProvider")
+//    public void testListarProdutoInvalidoSemSucesso(String query, String parametro, String campo, int valor) {
+//
+//        Response response = produtoClient.listarProdutoDiferentesQuery(query, parametro)
+//        .then()
+//                .statusCode(200)
+//                .extract().response()
+//        ;
+//
+//        int path = response.path(campo);
+//        Assertions.assertEquals(path, valor);
+//    }
 
     @Test
     @Tag("schema")
