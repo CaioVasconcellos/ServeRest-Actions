@@ -27,6 +27,24 @@ jobs:
         run: |
             aws sts get-caller-identity
 
+      - name: Disassociate repository from CodeGuru (if exists)
+        run: |
+          ASSOCIATION_ARN=$(aws codeguru-reviewer list-repository-associations --query "RepositoryAssociationSummaries[?Name=='ServeRest-Actions'].AssociationArn" --output text)
+          if [ "$ASSOCIATION_ARN" != "None" ]; then
+            echo "Found existing association: $ASSOCIATION_ARN"
+            aws codeguru-reviewer disassociate-repository --association-arn "$ASSOCIATION_ARN"
+          else
+            echo "No existing association found."
+          fi
+
+      - name: Associate repository to CodeGuru Reviewer
+        run: |
+          aws codeguru-reviewer associate-repository \
+          --repository "GitHub" \
+          --connection-arn arn:aws:codeguru-reviewer:us-east-2:311141518949:association:1074ec9e-4e7c-4873-9372-e80ba765b936:code-review:RepositoryAnalysis-CaioVasconcellos_ServeRest-Actions-main-989f4215-2a22-45e6-bac0-59a25c26e4c8 \
+          --name "ServeRest-Actions"
+          --owner "CaioVasconcellos"
+
       - name: Ensure S3 Bucket Exists
         run: |
           BUCKET_NAME="codeguru-reviewer-serverest-caio"
