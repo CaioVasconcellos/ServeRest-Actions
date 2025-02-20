@@ -10,11 +10,6 @@ public class HealthCheckTest {
 
     @Test
     public void testHealthCheck(){
-        if(true){
-            System.out.println("Teste");
-        }else{
-            System.out.println("Teste");
-        }
         produtoClient.listarProduto().then().statusCode(200);
     }
 }
