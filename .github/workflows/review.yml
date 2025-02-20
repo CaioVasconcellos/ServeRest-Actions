@@ -23,6 +23,15 @@ jobs:
           aws-region: us-west-2
           github_token: ${{ github.token }}
 
+      - name: Associate Repository with CodeGuru Reviewer
+        run: |
+            aws codeguru-reviewer associate-repository --repository '{
+              "GitHubEnterpriseServer": {
+                "Name": "CaioVasconcellos-ServeRest-Actions",
+                "ConnectionArn": "arn:aws:codestar-connections:us-west-2:123456789012:connection/example"
+              }
+            }'
+
       - name: Test AWS Credentials
         run: |
             aws sts get-caller-identity
