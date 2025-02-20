@@ -17,5 +17,5 @@ jobs:
         with:
           GITHUB_TOKEN: ${{ github.token }}
           OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
-          MODEL: "gpt-4o"
+          MODEL: "gpt-3o"
           REVIEW_LANGUAGE: "Portuguese"
