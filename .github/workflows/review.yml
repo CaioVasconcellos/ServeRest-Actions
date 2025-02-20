@@ -41,7 +41,7 @@ jobs:
         run: |
           aws codeguru-reviewer associate-repository \
           --repository "GitHub" \
-          --connection-arn arn:aws:codeguru-reviewer:us-east-2:311141518949:association:1074ec9e-4e7c-4873-9372-e80ba765b936:code-review:RepositoryAnalysis-CaioVasconcellos_ServeRest-Actions-main-989f4215-2a22-45e6-bac0-59a25c26e4c8 \
+          --connection-arn "arn:aws:codeguru-reviewer:us-east-2:311141518949:association:1074ec9e-4e7c-4873-9372-e80ba765b936:code-review:RepositoryAnalysis-CaioVasconcellos_ServeRest-Actions-main-989f4215-2a22-45e6-bac0-59a25c26e4c8" \
           --name "ServeRest-Actions"
           --owner "CaioVasconcellos"
 
