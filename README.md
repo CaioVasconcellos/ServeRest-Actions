@@ -13,7 +13,7 @@ Este repositório contém um projeto de testes automatizados utilizando **RestAs
 - **Maven** (gerenciamento de dependências)
 - **GitHub Actions** (CI/CD)
 - **Allure Reports** (relatórios de execução)
-- **CodeQL** (Analize estatica de código)
+- **CodeQL** (Análise Estática de código)
 
 <div style="display:flex; gap:10px;">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" width="40" alt="java logo"  />

@@ -232,7 +232,7 @@ jobs:
                     "inline": true
                   },
                   {
-                    "name": "🩺 Health Check | Sonarqube ",
+                    "name": "🩺 Health Check",
                     "value": "**${{ needs.sonarqube.result }}**",
                     "inline": true
                   },
