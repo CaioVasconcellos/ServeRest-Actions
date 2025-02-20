@@ -40,7 +40,7 @@ jobs:
         if: steps.iam-role.outcome == 'success'
         continue-on-error: false
         with:
-          s3_bucket: codeguru-reviewer-github-profiler-demo-048169001733-uw2
+          s3_bucket: codeguru-reviewer-serverest-caio
           build_path: ./target/classes
 
       - name: Store SARIF file
