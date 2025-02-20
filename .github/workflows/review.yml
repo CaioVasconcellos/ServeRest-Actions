@@ -12,6 +12,7 @@ jobs:
     steps:
       - uses: actions/checkout@v4
         with:
+          GITHUB_TOKEN: ${{ github.token }}
           fetch-depth: 0
 
       - name: Code Review GPT
