@@ -14,6 +14,7 @@ Este repositório contém um projeto de testes automatizados utilizando **RestAs
 - **GitHub Actions** (CI/CD)
 - **Allure Reports** (relatórios de execução)
 - **CodeQL** (Análise Estática de código)
+- **Sonarqube** (Análise contínua da qualidade do código, verificando vulnerabilidades, bugs e padrões de código)
 
 <div style="display:flex; gap:10px;">
   <img src="https://cdn.jsdelivr.net/gh/devicons/devicon/icons/java/java-original.svg" height="40" width="40" alt="java logo"  />
@@ -23,6 +24,7 @@ Este repositório contém um projeto de testes automatizados utilizando **RestAs
   <img src="https://avatars.githubusercontent.com/u/44036562?s=200&v=4" height="40" width="40 alt="Github Actions logo"  />
   <img src="https://avatars.githubusercontent.com/u/5879127?s=48&v=4" height="40" width="40" alt="allure report logo"  />
   <img src="https://www.svgrepo.com/show/373515/codeql.svg" height="40" width="40" alt="codeql logo"  />
+  <img src="https://www.svgrepo.com/show/306755/sonarcloud.svg" height="40" width="40" alt="sonar logo"/>
 
 </div>
 
