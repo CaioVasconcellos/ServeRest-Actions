@@ -22,7 +22,7 @@ jobs:
           role-to-assume: arn:aws:iam::311141518949:user/CodeReviewGitHubGuru
           aws-region: us-west-2
 
-      - uses: actions/checkout@v2
+      - uses: actions/checkout@v4
         if: steps.iam-role.outcome == 'success'
         with:
           fetch-depth: 0
@@ -45,7 +45,7 @@ jobs:
 
       - name: Store SARIF file
         if: steps.iam-role.outcome == 'success'
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: SARIF_recommendations
           path: ./codeguru-results.sarif.json
