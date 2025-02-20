@@ -147,6 +147,10 @@ O repositório conta com uma **pipeline de CI/CD** configurada no GitHub Actions
 ![image](https://github.com/user-attachments/assets/470a49ee-8e05-47f6-be70-b2d767de069a)
 |:---:|
 
+## Resultado Allure Pages
+![image](https://github.com/user-attachments/assets/39e40dd8-7614-411a-af98-15d6d4332a91)
+|:---:|
+
 ## Autor
 Desenvolvido por **Héctor Tavares** e **Caio Vasconcellos**, como parte dos estudos em testes automatizados e integração com GitHub Actions.
 
