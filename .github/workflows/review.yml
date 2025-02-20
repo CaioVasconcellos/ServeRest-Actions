@@ -1,19 +1,35 @@
-name: Codeball
+name: aws
 on:
   pull_request: {}
   pull_request_review_comment:
     types: [created, edited]
 
 jobs:
-  codeball_job:
+  AWS:
     runs-on: ubuntu-latest
-    name: Codeball
+    name: aws
     steps:
-      - name: Codeball
-        uses: sturdy-dev/codeball-action@v2
+
+      - name: Checkout repository
+        uses: actions/checkout@v2
         with:
-          # For all configuration options see https://github.com/sturdy-dev/codeball-action/blob/v2/action.yml
-          approvePullRequests: "true"
-          labelPullRequestsWhenApproved: "true"
-          labelPullRequestsWhenReviewNeeded: "false"
-          failJobsWhenReviewNeeded: "false"
+          fetch-depth: 0
+
+      - name: Configure AWS Credentials
+        uses: aws-actions/configure-aws-credentials@v1
+        with:
+          aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws-region: us-west-2
+
+      - name: CodeGuru Reviewer
+        uses: aws-actions/codeguru-reviewer@v1.1
+        with:
+          build_path: target
+          s3_bucket: codeguru-reviewer-serverest-actions
+
+      - name: Upload review result
+        if: ${{ github.event_name != 'push' }}
+        uses: github/codeql-action/upload-sarif@v1
+        with:
+          sarif_file: codeguru-results.sarif.json
