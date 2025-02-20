@@ -215,7 +215,7 @@ jobs:
             "embeds": [
               {
                 "title": "🚀 Pipeline Concluído!",
-                "description": "O pipeline foi executado e os resultados estão disponíveis abaixo.",
+                "description": "O pipeline foi executado e os resultados estão disponíveis abaixo e o link do allure no título.",
                 "url": "https://caiovasconcellos.github.io/ServeRest-Actions/",
                 "color": '${{ env.COLOR }}',
                  "fields": [
