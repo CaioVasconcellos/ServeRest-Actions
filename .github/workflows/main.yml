@@ -194,6 +194,19 @@ jobs:
     needs: [ build, health-check, contrato-test, funcional-test, sonarqube, relatorio-allure ]
     if: always()
     steps:
+      - name: Definir cor da notificação
+        run: |
+          if [[ "${{ needs.build.result }}" == "success" && 
+                "${{ needs.sonarqube.result }}" == "success" && 
+                "${{ needs.contrato-test.result }}" == "success" && 
+                "${{ needs.funcional-test.result }}" == "success" && 
+                "${{ needs.relatorio-allure.result }}" == "success" ]]; then
+            COLOR=3066993  
+          else
+            COLOR=15158332 
+          fi
+          echo "COLOR=$COLOR" >> $GITHUB_ENV
+
       - name: Notificar Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
@@ -206,8 +219,8 @@ jobs:
                 "title": "🚀 Pipeline Concluído!",
                 "description": "O pipeline foi executado e os resultados estão disponíveis abaixo e o link do allure no título.",
                 "url": "https://caiovasconcellos.github.io/ServeRest-Actions/",
-                "color": 3066993,
-                "fields": [
+                "color": '${{ env.COLOR }}',
+                 "fields": [
                   {
                     "name": "🔨 Build",
                     "value": "**${{ needs.build.result }}**",
@@ -267,6 +280,3 @@ jobs:
               }
             ]
           }' ${{ secrets.DISCORD_WEBHOOK_URL }}
-  
-  
-
