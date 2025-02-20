@@ -26,7 +26,7 @@ jobs:
       - name: CodeGuru Reviewer
         uses: aws-actions/codeguru-reviewer@v1.1
         with:
-          build_path: target
+          build_path: '/src'
           s3_bucket: codeguru-reviewer-serverest-caio
 
       - name: Upload review result
