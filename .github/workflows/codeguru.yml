@@ -19,7 +19,7 @@ jobs:
         continue-on-error: true
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:codeguru-reviewer:us-east-2:311141518949:association:1074ec9e-4e7c-4873-9372-e80ba765b936:code-review:RepositoryAnalysis-CaioVasconcellos_ServeRest-Actions-caio-feat-bot-649a0bbf-bb0f-4e55-805a-cac466bf8a8a
+          role-to-assume: arn:aws:iam::311141518949:role/aws-service-role/codeguru-reviewer.amazonaws.com/AWSServiceRoleForAmazonCodeGuruReviewer
           aws-region: us-west-2
 
       - uses: actions/checkout@v4
