@@ -46,7 +46,7 @@ jobs:
 
       - name: Store SARIF file
         if: steps.iam-role.outcome == 'success'
-        uses: actions/upload-artifact@v3
+        uses: actions/upload-artifact@v4
         with:
           name: SARIF_recommendations
           path: ./codeguru-results.sarif.json
