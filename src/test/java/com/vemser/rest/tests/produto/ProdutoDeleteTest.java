@@ -28,6 +28,12 @@ public class ProdutoDeleteTest {
 
     @BeforeEach
     public void setUp() {
+
+        if(true){
+            System.out.println("Teste");
+        }else{
+            System.out.println("Teste");
+        }
         usuarioId = usuarioClient.cadastrarUsuarios(UsuarioDataFactory.usuarioValidoAdminTrue()).path("_id");
         Usuario usuario = usuarioClient.retornarUsuarioPathParam(usuarioId);
         authorization = loginClient.realizarLogin(LoginDataFactory.loginValido(usuario)).path("authorization");
