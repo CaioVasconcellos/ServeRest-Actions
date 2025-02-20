@@ -1,22 +1,28 @@
-name: aws
+name: Analyze with CodeGuru Reviewer
+
 on:
-  pull_request: {}
-  pull_request_review_comment:
-    types: [created, edited]
+  - push
+  - workflow_dispatch # This allows manual triggering of the action through the GitHub UI.
+
+permissions:
+  id-token: write
+  contents: read
+  security-events: write
 
 jobs:
-  AWS:
+  build:
+    name: Analyze with CodeGuru Reviewer
     runs-on: ubuntu-latest
-    name: aws
     steps:
 
+      # Step 1: Checkout the repository and provide your AWS credentials
       - name: Checkout repository
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
         with:
           fetch-depth: 0
 
-      - name: Set up JDK 11
-        uses: actions/setup-java@v2
+      - name: Using JDK 17
+        uses: actions/setup-java@v4
         with:
           distribution: 'zulu'
           java-version: '17'
@@ -29,15 +35,16 @@ jobs:
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
-          aws-region: us-west-2
-          github_token: ${{ github.token }}
+          aws-region: us-west-2  # Region to access CodeGuru
 
+      # Step 2: Add CodeGuru Reviewer Action
       - name: CodeGuru Reviewer
         uses: aws-actions/codeguru-reviewer@v1.1
         with:
-          build_path: target/
+          build_path: target # build artifact(s) directory
           s3_bucket: codeguru-reviewer-serverest-caio
 
+      # Step 3: Upload results into GitHub
       - name: Upload review result
         if: ${{ github.event_name != 'push' }}
         uses: github/codeql-action/upload-sarif@v1
