@@ -19,7 +19,7 @@ jobs:
         continue-on-error: true
         uses: aws-actions/configure-aws-credentials@v1
         with:
-          role-to-assume: arn:aws:iam::311141518949:role/aws-service-role/codeguru-reviewer.amazonaws.com/AWSServiceRoleForAmazonCodeGuruReviewer
+          role-to-assume: arn:aws:iam::048169001733:role/GuruGitHubCICDRole
           aws-region: us-west-2
 
       - uses: actions/checkout@v4
