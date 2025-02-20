@@ -1,6 +1,7 @@
 # ServeRest-Actions
 [![ServeRest Test Pipeline](https://github.com/CaioVasconcellos/ServeRest-Actions/actions/workflows/main.yml/badge.svg)](https://github.com/CaioVasconcellos/ServeRest-Actions/actions/workflows/main.yml)
 [![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=CaioVasconcellos_ServeRest-Actions&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=CaioVasconcellos_ServeRest-Actions) 
+[![Code Review GPT](https://github.com/CaioVasconcellos/ServeRest-Actions/actions/workflows/review.yml/badge.svg)](https://github.com/CaioVasconcellos/ServeRest-Actions/actions/workflows/review.yml)
 
 
 ## Descrição
