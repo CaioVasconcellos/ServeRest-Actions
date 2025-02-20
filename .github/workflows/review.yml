@@ -39,7 +39,7 @@ jobs:
 
       - name: Ensure S3 Bucket Exists
         run: |
-          BUCKET_NAME="codeguru-reviewer-serverest-actions-oregon"
+          BUCKET_NAME="codeguru-reviewer-serverest-caio"
           if ! aws s3 ls "s3://$BUCKET_NAME" 2>/dev/null; then
             echo "Bucket does not exist, creating..."
             aws s3 mb "s3://$BUCKET_NAME" --region us-west-2
@@ -50,7 +50,7 @@ jobs:
       - name: Check for Existing CodeGuru Association
         id: check_association
         run: |
-                ASSOCIATION_ARN=$(aws codeguru-reviewer list-repository-associations --query "RepositoryAssociationSummaries[?Name=='CaioVasconcellos-ServeRest-Actions'].AssociationArn" --output text)
+                ASSOCIATION_ARN=$(aws codeguru-reviewer list-repository-associations --query "RepositoryAssociationSummaries[?Name=='ServeRest-Actions'].AssociationArn" --output text)
                 if [[ -n "$ASSOCIATION_ARN" ]]; then
                   echo "Found existing association: $ASSOCIATION_ARN"
                   echo "ASSOCIATION_ARN=$ASSOCIATION_ARN" >> $GITHUB_ENV
@@ -66,7 +66,7 @@ jobs:
 
       - name: Reassociate Repository with CodeGuru
         run: |
-                aws codeguru-reviewer associate-repository --repository Name="CaioVasconcellos-ServeRest-Actions",Type="GITHUB"
+                aws codeguru-reviewer associate-repository --repository Name="ServeRest-Actions",Type="GITHUB"
 
       - name: CodeGuru Reviewer
         uses: aws-actions/codeguru-reviewer@v1.1
