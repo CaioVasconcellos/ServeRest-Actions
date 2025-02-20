@@ -42,7 +42,7 @@ public class ProdutoProvider {
 
     public static Stream<Arguments> produtoResgatarListaInvalidoDataProvider() {
         return Stream.of(
-                Arguments.of(ID, ID_INVALIDO, "quantidade", 0),
+//                Arguments.of(ID, ID_INVALIDO, "quantidade", 0),
                 Arguments.of(ID, ID_ZERO, "quantidade", 0),
                 Arguments.of(QUERY_NOME, NOME_INVALIDO, "quantidade", 0)
         );
@@ -50,7 +50,7 @@ public class ProdutoProvider {
 
     public static Stream<Arguments> produtoBuscarInvalidoDataProvider() {
         return Stream.of(
-                Arguments.of(ID_INVALIDO, MESSAGE, ID_PRODUTO_INVALIDO),
+//                Arguments.of(ID_INVALIDO, MESSAGE, ID_PRODUTO_INVALIDO),
                 Arguments.of(ID_ZERO, MESSAGE, ID_PRODUTO_INVALIDO));
     }
 

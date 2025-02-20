@@ -40,14 +40,16 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+
+
+      - name: Executar teste Health Check
+        run: mvn -Dtest="com.vemser.rest.tests.healthCheck.HealthCheckTest" test
+
       - name: Baixar build do job anterior
         uses: actions/download-artifact@v4
         with:
           name: projeto-buildado
           path: target/
-
-      - name: Executar teste Health Check
-        run: mvn -Dtest="com.vemser.rest.tests.healthCheck.HealthCheckTest" test
 
       - name: Armazenar build como artefato
         if: always()
@@ -65,14 +67,14 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Testes de Schema (Contrato)
+        run: mvn test -Dgroups=schema
+
       - name: Baixar build do job anterior
         uses: actions/download-artifact@v4
         with:
           name: projeto-health-check
           path: target/
-
-      - name: Testes de Schema (Contrato)
-        run: mvn test -Dgroups=schema
 
       - name: Armazenar build como artefato
         if: always()
@@ -88,15 +90,15 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
+      - name: Testes Funcionais
+        run: mvn test -DexcludedGroups=schema
+        continue-on-error: false
+
       - name: Baixar build do job anterior
         uses: actions/download-artifact@v4
         with:
           name: projeto-contrato-test
           path: target/
-
-      - name: Testes Funcionais
-        run: mvn test -DexcludedGroups=schema
-        continue-on-error: false
 
       - name: Armazenar build como artefato
         if: always()

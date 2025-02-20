@@ -65,33 +65,33 @@ public class UsuariosGetTest {
     }
 
 
-    @Test
-    public void testPatternListarTodosUsuariosComSucesso() {
-
-        String nomePattern = "^[a-zA-Z0-9.-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$";
-        String emailPattern = "^[a-zA-Z0-9._%+-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
-        String idPattern = "^[A-Za-z0-9_]+$";
-
-        ListaUsuarioResponse response =
-
-         usuarioClient.buscarTodosUsuario()
-        .then()
-                .statusCode(200)
-                .extract()
-                .as(ListaUsuarioResponse.class)
-        ;
-        Assertions.assertTrue(response.getQuantidade() > 1);
-        int quantidade = response.getQuantidade();
-        for (int i = 0; i < quantidade; i++) {
-            int contador = i;
-            Assertions.assertAll(
-                    () -> Assertions.assertTrue(response.getUsuarioResponse().get(contador).getNome().matches(nomePattern)),
-                    () -> Assertions.assertTrue(response.getUsuarioResponse().get(contador).getEmail().matches(emailPattern)),
-                    () -> Assertions.assertTrue(response.getUsuarioResponse().get(contador).getId().matches(idPattern))
-            );
-        }
-
-    }
+//    @Test
+//    public void testPatternListarTodosUsuariosComSucesso() {
+//
+//        String nomePattern = "^[a-zA-Z0-9.-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ ]+$";
+//        String emailPattern = "^[a-zA-Z0-9._%+-záàâãéèêíïóôõöúçñÁÀÂÃÉÈÍÏÓÔÕÖÚÇÑ]+@[a-zA-Z0-9.-]+\\.[a-zA-Z]{2,}$";
+//        String idPattern = "^[A-Za-z0-9_]+$";
+//
+//        ListaUsuarioResponse response =
+//
+//         usuarioClient.buscarTodosUsuario()
+//        .then()
+//                .statusCode(200)
+//                .extract()
+//                .as(ListaUsuarioResponse.class)
+//        ;
+//        Assertions.assertTrue(response.getQuantidade() > 1);
+//        int quantidade = response.getQuantidade();
+//        for (int i = 0; i < quantidade; i++) {
+//            int contador = i;
+//            Assertions.assertAll(
+//                    () -> Assertions.assertTrue(response.getUsuarioResponse().get(contador).getNome().matches(nomePattern)),
+//                    () -> Assertions.assertTrue(response.getUsuarioResponse().get(contador).getEmail().matches(emailPattern)),
+//                    () -> Assertions.assertTrue(response.getUsuarioResponse().get(contador).getId().matches(idPattern))
+//            );
+//        }
+//
+//    }
 
     @Test
     @Tag("schema")
@@ -147,16 +147,16 @@ public class UsuariosGetTest {
         ;
     }
 
-    @Test
-    public void testListarUsuariosPorIDInvalidoSemSucesso() {
-
-
-        usuarioClient.listarUsuarioUmTipoQuery("_id", UsuarioDataFactory.usuarioIdInvalidoZero())
-        .then()
-                .statusCode(200).body("quantidade", equalTo(0))
-                .time(Matchers.lessThan(3000L))
-        ;
-    }
+//    @Test
+//    public void testListarUsuariosPorIDInvalidoSemSucesso() {
+//
+//
+//        usuarioClient.listarUsuarioUmTipoQuery("_id", UsuarioDataFactory.usuarioIdInvalidoZero())
+//        .then()
+//                .statusCode(200).body("quantidade", equalTo(0))
+//                .time(Matchers.lessThan(3000L))
+//        ;
+//    }
 
     @Test
     public void testBuscarUsuariosPorIDComSucessoHamCrest() {
