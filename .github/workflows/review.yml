@@ -23,16 +23,6 @@ jobs:
           aws-region: us-west-2
           github_token: ${{ github.token }}
 
-      - name: Associate Repository with CodeGuru Reviewer
-        run: |
-            aws codeguru-reviewer associate-repository --repository '{
-              "GitHubEnterpriseServer": {
-                "Name": "ServeRest-Actions",
-                "Owner": "CaioVasconcellos",
-                "ConnectionArn": "arn:aws:codeguru-reviewer:us-east-2:311141518949:association:1074ec9e-4e7c-4873-9372-e80ba765b936:code-review:RepositoryAnalysis-CaioVasconcellos_ServeRest-Actions-main-989f4215-2a22-45e6-bac0-59a25c26e4c8"
-              }
-            }'
-
       - name: Test AWS Credentials
         run: |
             aws sts get-caller-identity
