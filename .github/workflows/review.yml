@@ -48,16 +48,6 @@ jobs:
                   echo "No existing association found."
                 fi
 
-      - name: Remove Failed Association (if exists)
-        if: env.ASSOCIATION_ARN != ''
-        run: |
-                echo "Removing failed CodeGuru association..."
-                aws codeguru-reviewer disassociate-repository --association-arn $ASSOCIATION_ARN
-
-      - name: Reassociate Repository with CodeGuru
-        run: |
-                aws codeguru-reviewer associate-repository --repository Name="ServeRest-Actions",Type="GITHUB"
-
       - name: CodeGuru Reviewer
         uses: aws-actions/codeguru-reviewer@v1.1
         with:
