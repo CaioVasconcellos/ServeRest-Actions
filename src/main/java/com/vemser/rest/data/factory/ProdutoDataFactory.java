@@ -58,7 +58,7 @@ public class ProdutoDataFactory {
 
     private static Produto novoProduto(){
         Produto produto = new Produto();
-        produto.setNome(faker.commerce().productName());
+        produto.setNome("ABC" + faker.commerce().productName());
         produto.setPreco(faker.number().randomDigitNotZero());
         produto.setDescricao(faker.lorem().characters());
         produto.setQuantidade(faker.number().randomDigitNotZero());

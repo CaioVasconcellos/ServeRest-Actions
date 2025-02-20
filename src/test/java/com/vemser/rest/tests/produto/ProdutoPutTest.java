@@ -41,14 +41,14 @@ public class ProdutoPutTest {
 
     @Test
     @Tag("schema")
-    public void testSchemaAtualizarProdutoValidoComSucesso(){
-        produtoClient.atualizarProduto(produtoId,ProdutoDataFactory.atualizarPrecoProdutoValido(),authorization)
-        .then()
+    public void testSchemaAtualizarProdutoValidoComSucesso() {
+        produtoClient.atualizarProduto(produtoId, ProdutoDataFactory.atualizarPrecoProdutoValido(), authorization)
+                .then()
                 .statusCode(200)
                 .body(matchesJsonSchemaInClasspath("atualizar_produto.json"))
         ;
     }
-    @RetryingTest(3)
+
     @Test
     public void testAtualizarProdutoValidoComSucesso(){
         produtoClient.atualizarProduto(produtoId,ProdutoDataFactory.atualizarPrecoProdutoValido(),authorization)
