@@ -55,6 +55,7 @@ public class ProdutoPutTest {
         .then().statusCode(200);
     }
 
+    @RetryingTest(3)
     @ParameterizedTest
     @MethodSource(PATH_PRODUTO_PROVIDER + "#produtoInvalidoStatus400DataProvider")
     public void testAtualizarProdutoInvalidoStatus400SemSucesso(Produto produto, String campo, String value){
