@@ -132,7 +132,20 @@ O repositório conta com uma **pipeline de CI/CD** configurada no GitHub Actions
     1. Monta uma mensagem JSON com os resultados das etapas.
     2. Envia via webhook para um canal no Discord.
 
+## Estrutura da Pipeline
+### Sucesso
+![image](https://github.com/user-attachments/assets/30d81d77-a59e-41bd-a32f-9da2362addcf)
+|:---:|
+### Falha
+![image](https://github.com/user-attachments/assets/fbc02295-c771-4e88-9630-c7dea7aaf5ec)
+|:---:|
+## Integração com o Discord
+![image](https://github.com/user-attachments/assets/7dd05255-dfc2-46c7-89f7-c758dfffb4bb)
+|:---:|
 
+## Resultado do Sonarqube
+![image](https://github.com/user-attachments/assets/470a49ee-8e05-47f6-be70-b2d767de069a)
+|:---:|
 
 ## Autor
 Desenvolvido por **Héctor Tavares** e **Caio Vasconcellos**, como parte dos estudos em testes automatizados e integração com GitHub Actions.
