@@ -24,7 +24,7 @@ Este repositório contém um projeto de testes automatizados utilizando **RestAs
   <img src="https://avatars.githubusercontent.com/u/44036562?s=200&v=4" height="40" width="40 alt="Github Actions logo"  />
   <img src="https://avatars.githubusercontent.com/u/5879127?s=48&v=4" height="40" width="40" alt="allure report logo"  />
   <img src="https://www.svgrepo.com/show/373515/codeql.svg" height="40" width="40" alt="codeql logo"  />
-  <img src="https://www.svgrepo.com/show/306755/sonarcloud.svg" height="40" width="40" alt="sonar logo"/>
+  <img src="https://media.discordapp.net/attachments/1341477241929859165/1342143792349843477/sonarcloud.1024x896.png?ex=67b8904f&is=67b73ecf&hm=467060532e1e2ed6cd532aa3f045fd4e353a42a97fefed7cbccfe0bcd3027750&=&format=webp&quality=lossless&width=643&height=563" height="40" width="40" alt="sonar logo"/>
 
 </div>
 
