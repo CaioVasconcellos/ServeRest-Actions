@@ -145,8 +145,8 @@ O repositório conta com uma **pipeline de CI/CD** configurada no GitHub Actions
 |:---:|
 
 ## Resultado do Sonarqube
-![image](https://github.com/user-attachments/assets/470a49ee-8e05-47f6-be70-b2d767de069a)
-|:---:|
+|![image](https://github.com/user-attachments/assets/470a49ee-8e05-47f6-be70-b2d767de069a)| |![image](https://github.com/user-attachments/assets/9bca333b-2940-44ba-8b38-18a14cd7f9ef)|
+|:---:|:---:|:---:|
 
 ## Resultado Allure Pages
 ![image](https://github.com/user-attachments/assets/39e40dd8-7614-411a-af98-15d6d4332a91)
