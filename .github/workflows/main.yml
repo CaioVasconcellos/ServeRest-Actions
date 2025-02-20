@@ -192,19 +192,32 @@ jobs:
     needs: [ build, health-check, contrato-test, funcional-test, sonarqube, relatorio-allure ]
     if: always()
     steps:
+      - name: Definir cor da notificação
+        run: |
+          if [[ "${{ needs.build.result }}" == "success" && 
+                "${{ needs.sonarqube.result }}" == "success" && 
+                "${{ needs.contrato-test.result }}" == "success" && 
+                "${{ needs.funcional-test.result }}" == "success" && 
+                "${{ needs.relatorio-allure.result }}" == "success" ]]; then
+            COLOR=3066993  
+          else
+            COLOR=15158332 
+          fi
+          echo "COLOR=$COLOR" >> $GITHUB_ENV
+
       - name: Notificar Discord
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
           curl -H "Content-Type: application/json" -X POST -d '{
             "username": "Megazord da Qualidade",
-            "avatar_url": "https://cdn.discordapp.com/attachments/1341477241929859165/1341772925963079732/1666124032484.png?ex=67b736ea&is=67b5e56a&hm=4aa1569b8b40b5f0dbc6fa0af5694f65ad689bab5ea06c2902410b8182236dc0&",
+            "avatar_url": "https://cdn.discordapp.com/attachments/1341477241929859165/1341772925963079732/1666124032484.png",
             "embeds": [
               {
                 "title": "🚀 Pipeline Concluído!",
-                "description": "O pipeline foi executado e os resultados estão disponíveis abaixo e o link do allure no título.",
+                "description": "O pipeline foi executado e os resultados estão disponíveis abaixo.",
                 "url": "https://caiovasconcellos.github.io/ServeRest-Actions/",
-                "color": 3066993,
+                "color": '${{ env.COLOR }}',
                 "fields": [
                   {
                     "name": "🔨 Build",
@@ -212,12 +225,7 @@ jobs:
                     "inline": true
                   },
                   {
-                    "name": "🔎 Análise CodeQL",
-                    "value": "**${{ needs.codeql-analysis.result }}**",
-                    "inline": true
-                  },
-                  {
-                    "name": "🩺 Health Check | Sonarqube ",
+                    "name": "🩺 Health Check | Sonarqube",
                     "value": "**${{ needs.sonarqube.result }}**",
                     "inline": true
                   },
@@ -235,36 +243,14 @@ jobs:
                     "name": "📊 Relatório Allure",
                     "value": "**${{ needs.relatorio-allure.result }}**",
                     "inline": true
-                  },
-                  {
-                    "name": "📂 Repositório",
-                    "value": "[${{ github.repository }}](https://github.com/${{ github.repository }})",
-                    "inline": false
-                  },
-                  {
-                    "name": "🛎️ Evento",
-                    "value": "**${{ github.event_name }}**",
-                    "inline": true
-                  },
-                  {
-                    "name": "🔗 Link para a execução",
-                    "value": "[Clique aqui](https://github.com/${{ github.repository }}/actions/runs/${{ github.run_id }})",
-                    "inline": true
-                  },
-                  {
-                    "name": "🧑‍💻 Atualizado por",
-                    "value": "${{ github.actor }}",
-                    "inline": false
                   }
                 ],
                 "footer": {
-                  "text": "Equipe: Caio e Hector ️",
+                  "text": "Equipe: Caio e Hector",
                   "icon_url": "https://img.icons8.com/?size=100&id=W0h7DwgCTpon&format=png&color=000000"
                 },
                 "timestamp": "'"$(date -u +%Y-%m-%dT%H:%M:%SZ)"'"
               }
             ]
           }' ${{ secrets.DISCORD_WEBHOOK_URL }}
-  
-  
 
