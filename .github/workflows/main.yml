@@ -196,9 +196,9 @@ jobs:
         env:
           DISCORD_WEBHOOK_URL: ${{ secrets.DISCORD_WEBHOOK_URL }}
         run: |
-          color=3066993  # padrão verde (sucesso)
-          if [[ "${{ needs.build.result }}" == "failure" || "${{ needs.codeql-analysis.result }}" == "failure" || "${{ needs.health-check.result }}" == "failure" || "${{ needs.contrato-test.result }}" == "failure" || "${{ needs.funcional-test.result }}" == "failure" || "${{ needs.relatorio-allure.result }}" == "failure" ]]; then
-            color=15158332  # vermelho (falha)
+          color= 15158332 # padrão vermelho (não passou)
+          if [[ "${{ needs.build.result }}" == "success" || "${{ needs.codeql-analysis.result }}" == "success" || "${{ needs.health-check.result }}" == "success" || "${{ needs.contrato-test.result }}" == "success" || "${{ needs.funcional-test.result }}" == "success" || "${{ needs.relatorio-allure.result }}" == "success" ]]; then
+            color= 3066993  # verde (passou)
           fi
           
           curl -H "Content-Type: application/json" -X POST -d '{
