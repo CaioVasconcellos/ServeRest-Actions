@@ -122,7 +122,6 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Baixar build do job anterior
-
         env:
           GH_TOKEN: ${{ github.token }}
         run: |
@@ -131,6 +130,10 @@ jobs:
               gh run download -n projeto-health-check -D target/
             fi
           fi
+
+      - name: Sincronizar com o repositório remoto
+        run: |
+          git pull origin main --rebase  # Realiza o pull para garantir que o repositório local esteja atualizado
 
       - name: Gerar relatório Allure
         if: always()
