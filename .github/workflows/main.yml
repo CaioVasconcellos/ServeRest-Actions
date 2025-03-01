@@ -169,6 +169,15 @@ jobs:
           echo "Atualizando o diretório de histórico dentro do target para publicação..."
           cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
           
+          #Adc history em results
+          echo"Adiciona history em results..."
+          if [[ -e ./allure-history ]]; then
+          if [[ -e ./allure-results/history ]]; then
+          rm -rf ./allure-results/history
+          fi
+          mv ./allure-history ./allure-results/history
+          fi
+          
           # Configura o Git para o commit
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
@@ -188,6 +197,8 @@ jobs:
           # Verifica o conteúdo do diretório antes do commit
           echo "Conteúdo do diretório de publicação:"
           ls -l ./target/site/allure-maven-plugin/allure-history/
+          
+          
 
 
       - name: Garantir que o diretório existe
