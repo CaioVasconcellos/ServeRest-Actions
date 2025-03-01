@@ -170,7 +170,7 @@ jobs:
          git config --global user.email "github-actions[bot]@users.noreply.github.com"
          
          # Adiciona os arquivos de histórico dentro do target para o Git
-         git add ./target/site/allure-maven-plugin/allure-history/
+         git add ./allure-history
          
          # Verifica se houve alteração no histórico e faz o commit se necessário
          if git diff --cached --quiet; then
