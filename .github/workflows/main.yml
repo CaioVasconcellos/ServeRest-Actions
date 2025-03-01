@@ -201,10 +201,6 @@ jobs:
           # Verifica o conteúdo do diretório antes do commit
           echo "Conteúdo do diretório de publicação:"
           ls -l ./target/site/allure-maven-plugin/allure-history/
-      
-      
-      
-      
 
       - name: Garantir que o diretório existe
         run: |
@@ -213,12 +209,19 @@ jobs:
             mkdir -p ./target/site/allure-maven-plugin
           fi
 
+      - name: Preparar diretórios para publicação
+        run: |
+          mkdir -p ./temp-publish-dir
+          cp -r ./target/site/allure-maven-plugin/* ./temp-publish-dir/
+          cp -r ./allure-history/* ./temp-publish-dir/
+
       - name: Publicar no GitHub Pages
         if: always()
         uses: peaceiris/actions-gh-pages@v4
         with:
           github_token: ${{ secrets.PERSONAL_TOKEN }}
-          publish_dir: ./target/site/allure-maven-plugin
+          publish_dir: ./temp-publish-dir
+
 
 
 
