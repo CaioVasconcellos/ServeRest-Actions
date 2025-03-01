@@ -152,41 +152,34 @@ jobs:
       - name: Adicionar novo histórico do Allure sem deletar o anterior
         if: always()
         run: |
-          # Cria o diretório de histórico fora de target se não existir
           mkdir -p ./allure-history
-          
-          # Se já existe o diretório de histórico dentro de target, copia o conteúdo para fora de target sem sobrescrever
-          if [ -d "target/site/allure-maven-plugin/history" ]; then
-          echo "Histórico já existente encontrado, copiando e mantendo o histórico atual..."
-          cp -r target/site/allure-maven-plugin/history/* ./allure-history/
-          fi
-          
-          # Adiciona os novos arquivos de histórico
-          echo "Adicionando novos arquivos ao histórico..."
-          # Aqui você pode gerar ou copiar novos arquivos de histórico (geração do Allure)
-          # Exemplo: cp -r allure-results/history/* ./allure-history/
-          
-          # Cria o diretório de histórico dentro de target para publicação
-          mkdir -p ./target/site/allure-maven-plugin/allure-history
-          
-          # Copia o conteúdo do histórico externo para o diretório de publicação dentro de target (sem substituir)
-          cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
-          
-          # Configura e faz o commit do novo histórico
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-          # Adiciona os arquivos de histórico dentro de target para o git
-          git add ./target/site/allure-maven-plugin/allure-history/
-          
-          # Verifica se houve alteração no histórico e faz o commit se necessário
-          if git diff --cached --quiet; then
-          echo "Nenhuma mudança no histórico do Allure. Nada para commit."
-          else
-          git commit -m "Adicionando novo histórico do Allure ao GitHub Pages"
-          git push origin main
-          echo "Push realizado com sucesso!"
-          fi
+
+         Atualiza o diretório allure-history fora de target com os novos dados
+         echo "Atualizando o diretório de histórico fora do target..."
+         cp -r target/site/allure-maven-plugin/history/* ./allure-history/ || true
+         
+         # Cria o diretório de histórico dentro de target para publicação, se não existir
+         mkdir -p ./target/site/allure-maven-plugin/allure-history
+         
+         # Substitui o histórico dentro de target com o histórico atualizado
+         echo "Atualizando o diretório de histórico dentro do target para publicação..."
+         cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
+         
+         # Configura o Git para o commit
+         git config --global user.name "github-actions[bot]"
+         git config --global user.email "github-actions[bot]@users.noreply.github.com"
+         
+         # Adiciona os arquivos de histórico dentro do target para o Git
+         git add ./target/site/allure-maven-plugin/allure-history/
+         
+         # Verifica se houve alteração no histórico e faz o commit se necessário
+         if git diff --cached --quiet; then
+         echo "Nenhuma mudança no histórico do Allure. Nada para commit."
+         else
+         git commit -m "Atualizando o histórico do Allure no GitHub Pages"
+         git push origin main
+         echo "Push realizado com sucesso!"
+         fi
         
 
 
