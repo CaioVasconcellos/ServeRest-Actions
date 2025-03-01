@@ -169,6 +169,19 @@ jobs:
           echo "Atualizando o diretório de histórico dentro do target para publicação..."
           cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
           
+          # Adiciona history em results
+          echo "Adiciona history em results..."
+          if [[ -e ./allure-history ]]; then
+          # Cria o diretório de destino, caso não exista
+          mkdir -p ./allure-results/history
+          
+          if [[ -e ./allure-results/history ]]; then
+          rm -rf ./allure-results/history
+          fi
+          mv ./allure-history ./allure-results/history
+          fi
+          
+  
           #Adc history em results
           echo "Adiciona history em results..."
           if [[ -e ./allure-history ]]; then
