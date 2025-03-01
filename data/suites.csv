@@ -1,2 +1,2 @@
 "Status","Start Time","Stop Time","Duration in ms","Parent Suite","Suite","Sub Suite","Test Class","Test Method","Name","Description"
-"passed","Sat Mar 01 05:11:16 UTC 2025","Sat Mar 01 05:11:18 UTC 2025","1459","","com.vemser.rest.tests.healthCheck.HealthCheckTest","","com.vemser.rest.tests.healthCheck.HealthCheckTest","testHealthCheck","testHealthCheck()",""
+"passed","Sat Mar 01 05:20:10 UTC 2025","Sat Mar 01 05:20:12 UTC 2025","1406","","com.vemser.rest.tests.healthCheck.HealthCheckTest","","com.vemser.rest.tests.healthCheck.HealthCheckTest","testHealthCheck","testHealthCheck()",""
