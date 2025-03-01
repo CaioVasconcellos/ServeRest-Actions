@@ -157,47 +157,38 @@ jobs:
             echo "Histórico já existente encontrado, copiando e mantendo o histórico atual..."
             cp -r target/site/allure-maven-plugin/history/* ./allure-history/
           fi
-          
-          #Atualiza o diretório allure-history fora de target com os novos dados
+
+          # Atualiza o diretório allure-history fora de target com os novos dados
           echo "Atualizando o diretório de histórico fora do target..."
           cp -r target/site/allure-maven-plugin/history/* ./allure-history/ || true
-          
+
           # Cria o diretório de histórico dentro de target para publicação, se não existir
           mkdir -p ./target/site/allure-maven-plugin/allure-history
-          
+
           # Substitui o histórico dentro de target com o histórico atualizado
           echo "Atualizando o diretório de histórico dentro do target para publicação..."
           cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
-          
+
           # Adiciona history em results
           echo "Adiciona history em results..."
           if [[ -e ./allure-history ]]; then
-          # Cria o diretório de destino, caso não exista
-          mkdir -p ./allure-results/history
-          
-          if [[ -e ./allure-results/history ]]; then
-          rm -rf ./allure-results/history
+            # Cria o diretório de destino, caso não exista
+            mkdir -p ./allure-results/history
+
+            # Remove o histórico anterior, caso exista
+            rm -rf ./allure-results/history
+
+            # Move o novo histórico para o diretório de resultados
+            mv ./allure-history ./allure-results/history
           fi
-          mv ./allure-history ./allure-results/history
-          fi
-          
-  
-          #Adc history em results
-          echo "Adiciona history em results..."
-          if [[ -e ./allure-history ]]; then
-          if [[ -e ./allure-results/history ]]; then
-          rm -rf ./allure-results/history
-          fi
-          mv ./allure-history ./allure-results/history
-          fi
-          
+
           # Configura o Git para o commit
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
+
           # Adiciona os arquivos de histórico para o Git
           git add ./allure-history
-          
+
           # Verifica se houve alteração no histórico e faz o commit se necessário
           if git diff --cached --quiet; then
             echo "Nenhuma mudança no histórico do Allure. Nada para commit."
@@ -206,13 +197,14 @@ jobs:
             git push origin main
             echo "Push realizado com sucesso!"
           fi
-          
+
           # Verifica o conteúdo do diretório antes do commit
           echo "Conteúdo do diretório de publicação:"
           ls -l ./target/site/allure-maven-plugin/allure-history/
-          
-          
-
+      
+      
+      
+      
 
       - name: Garantir que o diretório existe
         run: |
