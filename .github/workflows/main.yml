@@ -151,8 +151,6 @@ jobs:
           publish_dir: ./target/site/allure-maven-plugin
 
       - name: Configurar acesso ao repositório
-        permissions:
-          contents: write  # Permite commit e push no repositório
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/CaioVasconcellos/ServeRest-Actions.git
 
