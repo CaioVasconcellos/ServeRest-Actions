@@ -158,7 +158,7 @@ jobs:
             cp -r target/site/allure-maven-plugin/history/* ./allure-history/
           fi
           
-          Atualiza o diretório allure-history fora de target com os novos dados
+          #Atualiza o diretório allure-history fora de target com os novos dados
           echo "Atualizando o diretório de histórico fora do target..."
           cp -r target/site/allure-maven-plugin/history/* ./allure-history/ || true
           
