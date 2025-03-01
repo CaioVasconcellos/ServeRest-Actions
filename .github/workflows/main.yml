@@ -150,7 +150,7 @@ jobs:
       - name: Test local action
         uses: ./allure-report-action
         if: always()
-        id: allure-report
+        id: allure-report-local
         with:
           allure_results: build/allure-results
           gh_pages: gh-pages
@@ -160,7 +160,7 @@ jobs:
       - name: Test marketplace action
         uses: simple-elf/allure-report-action@master
         if: always()
-        id: allure-report
+        id: allure-report-marketplace
         with:
           allure_results: build/allure-results
           gh_pages: gh-pages
@@ -170,7 +170,7 @@ jobs:
       - name: Test here and host elsewhere
         uses: simple-elf/allure-report-action@master
         if: always()
-        id: allure-report
+        id: allure-report-host
         with:
           allure_results: build/allure-results
           gh_pages: gh-pages
@@ -196,6 +196,7 @@ jobs:
           state: 'success'
           sha: ${{ github.event.pull_request.head.sha }}
           target_url: simple-elf.github.io/github-allure-history/${{ github.run_number }}
+
 
 
 
