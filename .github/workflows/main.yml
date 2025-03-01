@@ -173,7 +173,7 @@ jobs:
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Adiciona os arquivos de histórico dentro do target para o Git
+          # Adiciona os arquivos de histórico para o Git
           git add ./allure-history
           
           # Verifica se houve alteração no histórico e faz o commit se necessário
@@ -184,6 +184,10 @@ jobs:
             git push origin main
             echo "Push realizado com sucesso!"
           fi
+          
+          # Verifica o conteúdo do diretório antes do commit
+          echo "Conteúdo do diretório de publicação:"
+          ls -l ./target/site/allure-maven-plugin/allure-history/
 
 
 
