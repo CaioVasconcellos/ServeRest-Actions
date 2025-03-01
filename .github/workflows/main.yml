@@ -151,29 +151,20 @@ jobs:
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/CaioVasconcellos/ServeRest-Actions.git
 
-      - name: Salvar Tendências Allure
+      - name: Fazer commit e push do histórico do Allure
         run: |
           echo "Verificando a existência do diretório de histórico..."
           if [ -d "target/site/allure-maven-plugin/history" ]; then
             echo "Histórico de tendências encontrado, salvando..."
-          
-            # Cria o diretório onde o histórico será armazenado fora do 'target'
+
             mkdir -p ./allure-history  
-          
-            # Copia o diretório de histórico para um local persistente
             cp -r target/site/allure-maven-plugin/history ./allure-history/
-          
-            # Configuração do GitHub Actions para commit
+
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
-          
-            # Autenticando com Personal Access Token (PAT)
-            git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/CaioVasconcellos/ServeRest-Actions.git
-          
-            # Adiciona arquivos ao repositório e verifica se há mudanças
+
             git add allure-history/
-          
-            # Verifica se há mudanças para evitar erro de commit vazio
+
             if git diff --cached --quiet; then
               echo "Nenhuma mudança no histórico do Allure. Nada para commit."
             else
@@ -182,8 +173,7 @@ jobs:
               echo "Push realizado com sucesso!"
             fi
           else
-            echo "Nenhum histórico de tendências encontrado em 'target/site/allure-maven-plugin/history'."
-            echo "Verifique se o comando 'mvn allure:report' foi executado corretamente."
+            echo "Nenhum histórico de tendências encontrado."
           fi
   
   
