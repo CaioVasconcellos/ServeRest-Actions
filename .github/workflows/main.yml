@@ -185,49 +185,35 @@ jobs:
             mv ./allure-history ./allure-results/history
           fi
 
-          # Configura o Git para o commit
-          git config --global user.name "github-actions[bot]"
-          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          # Verifica se o diretório allure-history não está vazio antes de adicionar ao Git
+          if [ "$(ls -A ./allure-history)" ]; then
+            # Configura o Git para o commit
+            git config --global user.name "github-actions[bot]"
+            git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-          # Adiciona os arquivos de histórico para o Git
-          git add ./allure-history
+            # Adiciona os arquivos de histórico para o Git
+            git add ./allure-history
 
-          # Verifica se houve alteração no histórico e faz o commit se necessário
-          if git diff --cached --quiet; then
-            echo "Nenhuma mudança no histórico do Allure. Nada para commit."
+            # Verifica se houve alteração no histórico e faz o commit se necessário
+            if git diff --cached --quiet; then
+              echo "Nenhuma mudança no histórico do Allure. Nada para commit."
+            else
+              git commit -m "Atualizando o histórico do Allure no GitHub Pages"
+              git push origin main
+              echo "Push realizado com sucesso!"
+            fi
           else
-            git commit -m "Atualizando o histórico do Allure no GitHub Pages"
-            git push origin main
-            echo "Push realizado com sucesso!"
+            echo "O diretório allure-history está vazio, não há mudanças para commit."
           fi
 
           # Verifica o conteúdo do diretório antes do commit
           echo "Conteúdo do diretório de publicação:"
           ls -l ./target/site/allure-maven-plugin/allure-history/
-
-      - name: Garantir que o diretório existe
-        run: |
-          if [ ! -d "./target/site/allure-maven-plugin" ]; then
-            echo "O diretório não existe. Criando a estrutura de diretórios..."
-            mkdir -p ./target/site/allure-maven-plugin
-          fi
-
-      - name: Preparar diretórios para publicação
-        run: |
-          mkdir -p ./temp-publish-dir
-          cp -r ./target/site/allure-maven-plugin/* ./temp-publish-dir/
-          cp -r ./allure-history/* ./temp-publish-dir/
-
-      - name: Publicar no GitHub Pages
-        if: always()
-        uses: peaceiris/actions-gh-pages@v4
-        with:
-          github_token: ${{ secrets.PERSONAL_TOKEN }}
-          publish_dir: ./temp-publish-dir
-
-
-
-
+  
+  
+  
+  
+  
 
   #  codeql-analysis:
   #      runs-on: ubuntu-latest
