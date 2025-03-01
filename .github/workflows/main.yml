@@ -140,23 +140,29 @@ jobs:
             # Cria o diretório onde o histórico será armazenado fora do 'target'
             mkdir -p ./allure-history  
 
-            # Copia o diretório de histórico para o local persistente
+            # Copia o diretório de histórico para um local persistente
             cp -r target/site/allure-maven-plugin/history ./allure-history/
 
-            # Configuração de Git para o commit e push
+            # Configuração do GitHub Actions para commit
             git config --global user.name "github-actions[bot]"
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
 
-            # Adiciona os arquivos e faz commit
+            # Adiciona arquivos ao repositório e verifica se há mudanças
             git add allure-history/
-            git commit -m "Salvando tendências do Allure"
 
-            # Envia as mudanças para o repositório
-            git push origin main
+            # Verifica se há mudanças para evitar erro de commit vazio
+            if git diff --cached --quiet; then
+              echo "Nenhuma mudança no histórico do Allure. Nada para commit."
+            else
+              git commit -m "Salvando tendências do Allure [skip ci]"
+              git push origin main
+              echo "Push realizado com sucesso!"
+            fi
           else
             echo "Nenhum histórico de tendências encontrado em 'target/site/allure-maven-plugin/history'."
             echo "Verifique se o comando 'mvn allure:report' foi executado corretamente."
           fi
+
 
       - name: Gerar relatório Allure
         if: always()
