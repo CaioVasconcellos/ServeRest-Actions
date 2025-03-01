@@ -96,7 +96,8 @@
                     <reuseForks>false</reuseForks>
                     <argLine>-Dfile.encoding=UTF-8</argLine>
                     <systemPropertyVariables>
-                        <allure.results.directory>${project.build.directory}/allure-results</allure.results.directory>
+                        <!-- Alterando o diretório para um local personalizado -->
+                        <allure.results.directory>${project.basedir}/allure-results</allure.results.directory>
                     </systemPropertyVariables>
                 </configuration>
             </plugin>
@@ -107,8 +108,9 @@
                 <version>2.12.0</version>
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
-                    <resultsDirectory>${project.build.directory}/allure-results</resultsDirectory>
-                    <reportDirectory>${project.build.directory}/site/allure-maven-plugin</reportDirectory>
+                    <!-- Alterando o diretório de resultados para outro local -->
+                    <resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
+                    <reportDirectory>${project.basedir}/allure-report</reportDirectory>
                 </configuration>
             </plugin>
         </plugins>
