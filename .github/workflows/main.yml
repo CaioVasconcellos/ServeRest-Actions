@@ -153,6 +153,10 @@ jobs:
         if: always()
         run: |
           mkdir -p ./allure-history
+          if [ -d "target/site/allure-maven-plugin/history" ]; then
+            echo "Histórico já existente encontrado, copiando e mantendo o histórico atual..."
+            cp -r target/site/allure-maven-plugin/history/* ./allure-history/
+          fi
           
           Atualiza o diretório allure-history fora de target com os novos dados
           echo "Atualizando o diretório de histórico fora do target..."
@@ -174,11 +178,11 @@ jobs:
           
           # Verifica se houve alteração no histórico e faz o commit se necessário
           if git diff --cached --quiet; then
-          echo "Nenhuma mudança no histórico do Allure. Nada para commit."
+            echo "Nenhuma mudança no histórico do Allure. Nada para commit."
           else
-          git commit -m "Atualizando o histórico do Allure no GitHub Pages"
-          git push origin main
-          echo "Push realizado com sucesso!"
+            git commit -m "Atualizando o histórico do Allure no GitHub Pages"
+            git push origin main
+            echo "Push realizado com sucesso!"
           fi
 
 
