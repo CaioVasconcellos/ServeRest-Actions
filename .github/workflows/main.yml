@@ -152,7 +152,10 @@ jobs:
       - name: Adicionar novo histórico do Allure sem deletar o anterior
         if: always()
         run: |
+          # Cria o diretório allure-history se não existir
           mkdir -p ./allure-history
+
+          # Verifica se há histórico existente em target e copia para allure-history
           if [ -d "target/site/allure-maven-plugin/history" ]; then
             echo "Histórico já existente encontrado, copiando e mantendo o histórico atual..."
             cp -r target/site/allure-maven-plugin/history/* ./allure-history/
@@ -172,10 +175,10 @@ jobs:
           # Adiciona history em results
           echo "Adiciona history em results..."
           if [[ -e ./allure-history ]]; then
-            # Cria o diretório de destino, caso não exista
+            # Cria o diretório de destino dentro de allure-results, caso não exista
             mkdir -p ./allure-results/history
 
-            # Remove o histórico anterior, caso exista
+            # Remove o histórico anterior em allure-results/history, se existir
             rm -rf ./allure-results/history
 
             # Move o novo histórico para o diretório de resultados
