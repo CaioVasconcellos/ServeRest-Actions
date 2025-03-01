@@ -9,9 +9,6 @@ on:
       - main
   workflow_dispatch:
 
-permissions:
-  contents: write
-
 jobs:
 
   build:
@@ -114,7 +111,8 @@ jobs:
   relatorio-allure:
     permissions:
       actions: read
-      contents: read
+      contents: write
+
 
     runs-on: ubuntu-latest
     needs: [ build, health-check, contrato-test, funcional-test ]
