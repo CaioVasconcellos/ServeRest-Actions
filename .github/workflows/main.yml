@@ -114,7 +114,7 @@ jobs:
       contents: read
 
     runs-on: ubuntu-latest
-    needs: [ build, health-check, contrato-test, funcional-test]
+    needs: [ build, health-check, contrato-test, funcional-test ]
     if: always()
     steps:
       - name: Check out repository
@@ -136,7 +136,7 @@ jobs:
           if [ -d "target/site/allure-maven-plugin/history" ]; then
           echo "Salvando histórico de tendências Allure..."
           cp -r target/site/allure-maven-plugin/history target/allure-results/history
-         else
+          else
           echo "Nenhum histórico de tendências encontrado."
           fi 
 
@@ -156,32 +156,32 @@ jobs:
           github_token: ${{ secrets.PERSONAL_TOKEN }}
           publish_dir: ./target/site/allure-maven-plugin
 
-#  codeql-analysis:
-#      runs-on: ubuntu-latest
-#      permissions:
-#        actions: read
-#        contents: read
-#        security-events: write
-#
-#      strategy:
-#        fail-fast: false
-#        matrix:
-#          language: ['java']
-#
-#      steps:
-#        - name: Check out repository
-#          uses: actions/checkout@v4
-#
-#        - name: Initialize CodeQL
-#          uses: github/codeql-action/init@v3
-#          with:
-#            languages: ${{ matrix.language }}
-#
-#        - name: Autobuild
-#          uses: github/codeql-action/autobuild@v3
-#
-#        - name: Perform CodeQL Analysis
-#          uses: github/codeql-action/analyze@v3
+  #  codeql-analysis:
+  #      runs-on: ubuntu-latest
+  #      permissions:
+  #        actions: read
+  #        contents: read
+  #        security-events: write
+  #
+  #      strategy:
+  #        fail-fast: false
+  #        matrix:
+  #          language: ['java']
+  #
+  #      steps:
+  #        - name: Check out repository
+  #          uses: actions/checkout@v4
+  #
+  #        - name: Initialize CodeQL
+  #          uses: github/codeql-action/init@v3
+  #          with:
+  #            languages: ${{ matrix.language }}
+  #
+  #        - name: Autobuild
+  #          uses: github/codeql-action/autobuild@v3
+  #
+  #        - name: Perform CodeQL Analysis
+  #          uses: github/codeql-action/analyze@v3
 
   sonarqube:
     runs-on: ubuntu-latest
