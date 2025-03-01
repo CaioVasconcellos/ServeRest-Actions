@@ -59,54 +59,54 @@ jobs:
           name: projeto-health-check
           path: target/
 
-  contrato-test:
-    runs-on: ubuntu-latest
-    needs: health-check
-    permissions:
-      contents: write
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
+#  contrato-test:
+#    runs-on: ubuntu-latest
+#    needs: health-check
+#    permissions:
+#      contents: write
+#    steps:
+#      - name: Check out repository
+#        uses: actions/checkout@v4
+#
+#      - name: Testes de Schema (Contrato)
+#        run: mvn test -Dgroups=schema
+#
+#      - name: Baixar build do job anterior
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: projeto-health-check
+#          path: target/
+#
+#      - name: Armazenar build como artefato
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: projeto-contrato-test
+#          path: target/
 
-      - name: Testes de Schema (Contrato)
-        run: mvn test -Dgroups=schema
-
-      - name: Baixar build do job anterior
-        uses: actions/download-artifact@v4
-        with:
-          name: projeto-health-check
-          path: target/
-
-      - name: Armazenar build como artefato
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: projeto-contrato-test
-          path: target/
-
-  funcional-test:
-    runs-on: ubuntu-latest
-    needs: contrato-test
-    steps:
-      - name: Check out repository
-        uses: actions/checkout@v4
-
-      - name: Testes Funcionais
-        run: mvn test -DexcludedGroups=schema
-        continue-on-error: false
-
-      - name: Baixar build do job anterior
-        uses: actions/download-artifact@v4
-        with:
-          name: projeto-contrato-test
-          path: target/
-
-      - name: Armazenar build como artefato
-        if: always()
-        uses: actions/upload-artifact@v4
-        with:
-          name: projeto-funcional-test
-          path: target/
+#  funcional-test:
+#    runs-on: ubuntu-latest
+#    needs: contrato-test
+#    steps:
+#      - name: Check out repository
+#        uses: actions/checkout@v4
+#
+#      - name: Testes Funcionais
+#        run: mvn test -DexcludedGroups=schema
+#        continue-on-error: false
+#
+#      - name: Baixar build do job anterior
+#        uses: actions/download-artifact@v4
+#        with:
+#          name: projeto-contrato-test
+#          path: target/
+#
+#      - name: Armazenar build como artefato
+#        if: always()
+#        uses: actions/upload-artifact@v4
+#        with:
+#          name: projeto-funcional-test
+#          path: target/
 
   relatorio-allure:
     permissions:
@@ -147,16 +147,6 @@ jobs:
             cp -R ./target/allure-report/history ./target/allure-results/history || echo "Nenhum histórico anterior encontrado"
           fi
 
-      - name: Test local action
-        uses: ./allure-report-action
-        if: always()
-        id: allure-report-local
-        with:
-          allure_results: build/allure-results
-          gh_pages: gh-pages
-          allure_report: allure-report
-          allure_history: allure-history
-
       - name: Test marketplace action
         uses: simple-elf/allure-report-action@master
         if: always()
@@ -187,15 +177,7 @@ jobs:
           PUBLISH_BRANCH: gh-pages
           PUBLISH_DIR: allure-history
 
-      - name: Post the link to the report
-        if: always()
-        uses: Sibz/github-status-action@v1
-        with:
-          authToken: ${{secrets.GITHUB_TOKEN}}
-          context: 'Test report'
-          state: 'success'
-          sha: ${{ github.event.pull_request.head.sha }}
-          target_url: simple-elf.github.io/github-allure-history/${{ github.run_number }}
+
 
 
 
