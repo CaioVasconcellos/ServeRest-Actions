@@ -170,7 +170,7 @@ jobs:
           cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
           
           #Adc history em results
-          echo"Adiciona history em results..."
+          echo "Adiciona history em results..."
           if [[ -e ./allure-history ]]; then
           if [[ -e ./allure-results/history ]]; then
           rm -rf ./allure-results/history
