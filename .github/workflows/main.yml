@@ -131,6 +131,15 @@ jobs:
             fi
           fi
 
+      - name: Salvar Tendências Allure
+        run: |
+          if [ -d "target/site/allure-maven-plugin/history" ]; then
+          echo "Salvando histórico de tendências Allure..."
+          cp -r target/site/allure-maven-plugin/history target/allure-results/history
+         else
+          echo "Nenhum histórico de tendências encontrado."
+          fi 
+
       - name: Gerar relatório Allure
         if: always()
         run: |
