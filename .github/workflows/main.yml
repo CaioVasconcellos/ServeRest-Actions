@@ -152,17 +152,21 @@ jobs:
       - name: Adicionar novo histórico do Allure sem deletar o anterior
         if: always()
         run: |
-          # Cria o diretório de histórico se não existir
-          mkdir -p ./target/site/allure-maven-plugin/allure-history
+          # Cria o diretório de histórico fora do target se não existir
+          mkdir -p ./allure-history
   
-          # Copia o novo histórico para o diretório de histórico, mantendo o anterior
-          cp -r allure-history/* ./target/site/allure-maven-plugin/allure-history/
+          # Copia o novo histórico para o diretório de histórico fora de target
+          cp -r allure-history/* ./allure-history/
           
-          # Adiciona e configura o git
+          # Copia o histórico de fora de target para dentro de target (para publicação)
+          mkdir -p ./target/site/allure-maven-plugin/allure-history
+          cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
+          
+          # Configura e faz o commit do novo histórico
           git config --global user.name "github-actions[bot]"
           git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
-          # Adiciona todos os arquivos alterados, incluindo os históricos
+          # Adiciona os arquivos de histórico dentro de target para o git
           git add ./target/site/allure-maven-plugin/allure-history/
           
           # Verifica se houve alteração no histórico e faz o commit se necessário
