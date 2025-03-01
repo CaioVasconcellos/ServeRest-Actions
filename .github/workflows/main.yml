@@ -68,8 +68,8 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-#      - name: Testes de Schema (Contrato)
-#        run: mvn test -Dgroups=schema
+      #      - name: Testes de Schema (Contrato)
+      #        run: mvn test -Dgroups=schema
 
       - name: Baixar build do job anterior
         uses: actions/download-artifact@v4
@@ -91,9 +91,9 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-#      - name: Testes Funcionais
-#        run: mvn test -DexcludedGroups=schema
-#        continue-on-error: false
+      #      - name: Testes Funcionais
+      #        run: mvn test -DexcludedGroups=schema
+      #        continue-on-error: false
 
       - name: Baixar build do job anterior
         uses: actions/download-artifact@v4
@@ -153,34 +153,34 @@ jobs:
         if: always()
         run: |
           mkdir -p ./allure-history
+          
+          Atualiza o diretório allure-history fora de target com os novos dados
+          echo "Atualizando o diretório de histórico fora do target..."
+          cp -r target/site/allure-maven-plugin/history/* ./allure-history/ || true
+          
+          # Cria o diretório de histórico dentro de target para publicação, se não existir
+          mkdir -p ./target/site/allure-maven-plugin/allure-history
+          
+          # Substitui o histórico dentro de target com o histórico atualizado
+          echo "Atualizando o diretório de histórico dentro do target para publicação..."
+          cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
+          
+          # Configura o Git para o commit
+          git config --global user.name "github-actions[bot]"
+          git config --global user.email "github-actions[bot]@users.noreply.github.com"
+          
+          # Adiciona os arquivos de histórico dentro do target para o Git
+          git add ./allure-history
+          
+          # Verifica se houve alteração no histórico e faz o commit se necessário
+          if git diff --cached --quiet; then
+          echo "Nenhuma mudança no histórico do Allure. Nada para commit."
+          else
+          git commit -m "Atualizando o histórico do Allure no GitHub Pages"
+          git push origin main
+          echo "Push realizado com sucesso!"
+          fi
 
-         Atualiza o diretório allure-history fora de target com os novos dados
-         echo "Atualizando o diretório de histórico fora do target..."
-         cp -r target/site/allure-maven-plugin/history/* ./allure-history/ || true
-         
-         # Cria o diretório de histórico dentro de target para publicação, se não existir
-         mkdir -p ./target/site/allure-maven-plugin/allure-history
-         
-         # Substitui o histórico dentro de target com o histórico atualizado
-         echo "Atualizando o diretório de histórico dentro do target para publicação..."
-         cp -r ./allure-history/* ./target/site/allure-maven-plugin/allure-history/
-         
-         # Configura o Git para o commit
-         git config --global user.name "github-actions[bot]"
-         git config --global user.email "github-actions[bot]@users.noreply.github.com"
-         
-         # Adiciona os arquivos de histórico dentro do target para o Git
-         git add ./allure-history
-         
-         # Verifica se houve alteração no histórico e faz o commit se necessário
-         if git diff --cached --quiet; then
-         echo "Nenhuma mudança no histórico do Allure. Nada para commit."
-         else
-         git commit -m "Atualizando o histórico do Allure no GitHub Pages"
-         git push origin main
-         echo "Push realizado com sucesso!"
-         fi
-        
 
 
       - name: Publicar no GitHub Pages
