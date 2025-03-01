@@ -9,6 +9,9 @@ on:
       - main
   workflow_dispatch:
 
+permissions:
+  contents: write
+
 jobs:
 
   build:
@@ -148,10 +151,14 @@ jobs:
           publish_dir: ./target/site/allure-maven-plugin
 
       - name: Configurar acesso ao repositório
+        permissions:
+          contents: write  # Permite commit e push no repositório
         run: |
           git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/CaioVasconcellos/ServeRest-Actions.git
 
+
       - name: Fazer commit e push do histórico do Allure
+
         run: |
           echo "Verificando a existência do diretório de histórico..."
           if [ -d "target/site/allure-maven-plugin/history" ]; then
