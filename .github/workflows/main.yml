@@ -168,7 +168,7 @@ jobs:
             git config --global user.email "github-actions[bot]@users.noreply.github.com"
           
             # Autenticando com Personal Access Token (PAT)
-            git remote set-url origin https://x-access-token:${{ secrets.GH_PAT }}@github.com/CaioVasconcellos/ServeRest-Actions.git
+            git remote set-url origin https://x-access-token:${{ secrets.PERSONAL_TOKEN }}@github.com/CaioVasconcellos/ServeRest-Actions.git
           
             # Adiciona arquivos ao repositório e verifica se há mudanças
             git add allure-history/
