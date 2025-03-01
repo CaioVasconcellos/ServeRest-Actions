@@ -134,11 +134,12 @@ jobs:
       - name: Salvar Tendências Allure
         run: |
           if [ -d "target/site/allure-maven-plugin/history" ]; then
-          echo "Salvando histórico de tendências Allure..."
-          cp -r target/site/allure-maven-plugin/history target/allure-results/history
+            echo "Salvando histórico de tendências Allure..."
+            mkdir -p ./allure-history  # Cria o diretório persistente
+            cp -r target/site/allure-maven-plugin/history ./allure-history/  # Copia para o diretório fora de target
           else
-          echo "Nenhum histórico de tendências encontrado."
-          fi 
+            echo "Nenhum histórico de tendências encontrado."
+          fi
 
       - name: Gerar relatório Allure
         if: always()
