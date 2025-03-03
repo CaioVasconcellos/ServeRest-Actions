@@ -67,22 +67,22 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-#
-#      - name: Testes de Schema (Contrato)
-#        run: mvn test -Dgroups=schema
-#
-#      - name: Baixar build do job anterior
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: projeto-health-check
-#          path: target/
-#
-#      - name: Armazenar build como artefato
-#        if: always()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: projeto-contrato-test
-#          path: target/
+  #
+  #      - name: Testes de Schema (Contrato)
+  #        run: mvn test -Dgroups=schema
+  #
+  #      - name: Baixar build do job anterior
+  #        uses: actions/download-artifact@v4
+  #        with:
+  #          name: projeto-health-check
+  #          path: target/
+  #
+  #      - name: Armazenar build como artefato
+  #        if: always()
+  #        uses: actions/upload-artifact@v4
+  #        with:
+  #          name: projeto-contrato-test
+  #          path: target/
 
   funcional-test:
     runs-on: ubuntu-latest
@@ -91,22 +91,22 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-#      - name: Testes Funcionais
-#        run: mvn test -DexcludedGroups=schema
-#        continue-on-error: false
-#
-#      - name: Baixar build do job anterior
-#        uses: actions/download-artifact@v4
-#        with:
-#          name: projeto-contrato-test
-#          path: target/
-#
-#      - name: Armazenar build como artefato
-#        if: always()
-#        uses: actions/upload-artifact@v4
-#        with:
-#          name: projeto-funcional-test
-#          path: target/
+  #      - name: Testes Funcionais
+  #        run: mvn test -DexcludedGroups=schema
+  #        continue-on-error: false
+  #
+  #      - name: Baixar build do job anterior
+  #        uses: actions/download-artifact@v4
+  #        with:
+  #          name: projeto-contrato-test
+  #          path: target/
+  #
+  #      - name: Armazenar build como artefato
+  #        if: always()
+  #        uses: actions/upload-artifact@v4
+  #        with:
+  #          name: projeto-funcional-test
+  #          path: target/
 
   relatorio-allure:
     permissions:
@@ -130,40 +130,29 @@ jobs:
             fi
           fi
 
-      - name: Gerar relatório Allure
+      - name: Load test report history
+        uses: actions/checkout@v3
         if: always()
-        run: |
-          mvn allure:report
-          mvn allure:serve &
-          sleep 5
-          pkill -f allure
         continue-on-error: true
-
-      - name: Copiar histórico de relatórios anteriores
-        run: |
-          # Verifique se o diretório history existe
-          if [ -d "./target/allure-report/history" ]; then
-            # Copia o diretório de histórico para allure-results/history
-            cp -R ./target/allure-report/history ./target/allure-results/history || echo "Nenhum histórico anterior encontrado"
-          fi
-
-      - name: Test marketplace action
-        uses: simple-elf/allure-report-action@master
-        if: always()
-        id: allure-report-marketplace
         with:
-          allure_results: build/allure-results
-          gh_pages: gh-pages
-          allure_report: allure-report
-          allure_history: allure-history
+         ref: gh-pages
+         path: gh-pages
 
-      - name: Deploy report to Github Pages
+      - name: Build test report
+        uses: simple-elf/allure-report-action@v1.7
         if: always()
-        uses: peaceiris/actions-gh-pages@v2
-        env:
-          PERSONAL_TOKEN: ${{ secrets.PERSONAL_TOKEN}}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: allure-history
+        with:
+          gh_pages: gh-pages
+          allure_history: allure-history
+          allure_results: build/allure-results
+
+      - name: Publish test report
+        uses: peaceiris/actions-gh-pages@v3
+        if: always()
+        with:
+           github_token: ${{ secrets.PERSONAL_TOKEN}}
+           publish_branch: gh-pages
+           publish_dir: allure-history
 
 
 
