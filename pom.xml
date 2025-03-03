@@ -109,6 +109,8 @@
                 <configuration>
                     <reportVersion>${allure.version}</reportVersion>
                     <!-- Alterando o diretório de resultados para outro local -->
+                    <resultsDirectory>${project.basedir}/allure-results</resultsDirectory>
+                    <reportDirectory>${project.basedir}/allure-report</reportDirectory>
                 </configuration>
             </plugin>
         </plugins>
