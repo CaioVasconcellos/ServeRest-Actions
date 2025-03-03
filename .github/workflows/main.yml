@@ -67,22 +67,22 @@ jobs:
     steps:
       - name: Check out repository
         uses: actions/checkout@v4
-  #
-  #      - name: Testes de Schema (Contrato)
-  #        run: mvn test -Dgroups=schema
-  #
-  #      - name: Baixar build do job anterior
-  #        uses: actions/download-artifact@v4
-  #        with:
-  #          name: projeto-health-check
-  #          path: target/
-  #
-  #      - name: Armazenar build como artefato
-  #        if: always()
-  #        uses: actions/upload-artifact@v4
-  #        with:
-  #          name: projeto-contrato-test
-  #          path: target/
+
+      - name: Testes de Schema (Contrato)
+        run: mvn test -Dgroups=schema
+
+      - name: Baixar build do job anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: projeto-health-check
+          path: target/
+
+      - name: Armazenar build como artefato
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: projeto-contrato-test
+          path: target/
 
   funcional-test:
     runs-on: ubuntu-latest
@@ -91,22 +91,22 @@ jobs:
       - name: Check out repository
         uses: actions/checkout@v4
 
-  #      - name: Testes Funcionais
-  #        run: mvn test -DexcludedGroups=schema
-  #        continue-on-error: false
-  #
-  #      - name: Baixar build do job anterior
-  #        uses: actions/download-artifact@v4
-  #        with:
-  #          name: projeto-contrato-test
-  #          path: target/
-  #
-  #      - name: Armazenar build como artefato
-  #        if: always()
-  #        uses: actions/upload-artifact@v4
-  #        with:
-  #          name: projeto-funcional-test
-  #          path: target/
+      - name: Testes Funcionais
+        run: mvn test -DexcludedGroups=schema
+        continue-on-error: false
+
+      - name: Baixar build do job anterior
+        uses: actions/download-artifact@v4
+        with:
+          name: projeto-contrato-test
+          path: target/
+
+      - name: Armazenar build como artefato
+        if: always()
+        uses: actions/upload-artifact@v4
+        with:
+          name: projeto-funcional-test
+          path: target/
 
   relatorio-allure:
     permissions:
